@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>상용차 콘텐츠 클리핑 — 2026.07.29</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", "Noto Sans KR", sans-serif; background: #f4f4f2; color: #1a1a1a; font-size: 14px; line-height: 1.55; }
+.app { max-width: 1320px; margin: 0 auto; }
+.app-header { background: linear-gradient(135deg, #1a1a1a, #2a2a2a); color: white; padding: 18px 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+.app-header h1 { font-size: 19px; font-weight: 700; }
+.app-header .subtitle { font-size: 12px; opacity: 0.7; margin-top: 2px; }
+.app-header .quick { display: flex; gap: 18px; font-size: 12px; }
+.app-header .quick .item { text-align: right; line-height: 1.2; }
+.app-header .quick .v { font-size: 17px; font-weight: 700; }
+.app-header .quick .l { font-size: 10.5px; opacity: 0.7; }
+.tabs { display: flex; background: #fff; border-bottom: 1px solid #e0e0e0; padding: 0 16px; position: sticky; top: 0; z-index: 10; overflow-x: auto; }
+.tabs button { background: none; border: none; padding: 14px 16px; font-size: 13px; cursor: pointer; color: #666; border-bottom: 3px solid transparent; font-family: inherit; white-space: nowrap; font-weight: 500; }
+.tabs button:hover { color: #c8472b; background: #fafafa; }
+.tabs button.active { color: #c8472b; border-bottom-color: #c8472b; font-weight: 600; }
+.tab-pane { display: none; padding: 20px 24px; }
+.tab-pane.active { display: block; }
+.section { background: #fff; border: 1px solid #e6e6e6; border-radius: 10px; padding: 16px 20px; margin-bottom: 14px; }
+.section > h2 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.section .desc { font-size: 12px; color: #777; margin-bottom: 12px; }
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 14px; }
+.kpi { background: #fff; border: 1px solid #e6e6e6; border-radius: 10px; padding: 14px 18px; position: relative; overflow: hidden; }
+.kpi::before { content: ""; position: absolute; top: 0; left: 0; bottom: 0; width: 4px; background: #888; }
+.kpi.pos::before { background: #2a8f2a; }
+.kpi.neg::before { background: #c0392b; }
+.kpi.accent::before { background: #c8472b; }
+.kpi.info::before { background: #2c5aa0; }
+.kpi .label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.3px; }
+.kpi .v { font-size: 22px; font-weight: 700; margin-top: 4px; line-height: 1.1; }
+.kpi .v.neg { color: #c0392b; }
+.kpi .v.accent { color: #c8472b; }
+.kpi .sub { font-size: 11.5px; color: #666; margin-top: 4px; }
+.item-list { display: flex; flex-direction: column; gap: 8px; }
+.news-item { padding: 10px 12px; border: 1px solid #eee; border-radius: 6px; background: #fafafa; }
+.news-item .title { font-weight: 600; font-size: 13px; margin-bottom: 3px; }
+.news-item .title a { color: #1a1a1a; text-decoration: none; }
+.news-item .title a:hover { color: #c8472b; text-decoration: underline; }
+.news-item .desc { font-size: 12px; color: #555; }
+.news-item .meta { font-size: 10.5px; color: #999; margin-top: 4px; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+.note { background: #f0f5ff; border-left: 3px solid #5577cc; padding: 10px 14px; margin-bottom: 12px; font-size: 12.5px; color: #334; border-radius: 4px; }
+.note b { color: #224488; }
+.note.warn { background: #fff8e6; border-color: #c8a000; color: #5a4400; }
+.note.warn b { color: #885500; }
+.note ul { margin: 4px 0 0 18px; }
+.note li { margin: 4px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+th, td { padding: 7px 10px; text-align: right; border-bottom: 1px solid #eee; }
+th { background: #fafafa; font-weight: 600; color: #555; }
+th:first-child, td:first-child { text-align: left; font-weight: 600; }
+td a { color: #1a1a1a; text-decoration: none; border-bottom: 1px dotted #c09070; }
+td a:hover { color: #c8472b; }
+.tag { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 10.5px; font-weight: 600; margin-right: 4px; vertical-align: 1px; }
+.tag.neg { background: #fde8e6; color: #a82820; }
+.tag.pos { background: #e8f5e9; color: #2a7a2a; }
+.tag.comp { background: #e8eefa; color: #2c5aa0; }
+.tag.neu { background: #eee; color: #666; }
+.tag.pol { background: #f3e8fa; color: #7040a0; }
+.tag.hot { background: #c8472b; color: #fff; }
+.status { font-size: 10.5px; font-weight: 700; padding: 1px 8px; border-radius: 9px; float: right; }
+.status.on { background: #e8f5e9; color: #2a7a2a; }
+.status.off { background: #fde8e6; color: #a82820; }
+.status.idle { background: #eee; color: #777; }
+.deep { border: 1px solid #e6ddd0; border-radius: 8px; margin-bottom: 10px; overflow: hidden; background: #fff; }
+.deep .dh { background: #faf6f0; padding: 9px 14px; font-weight: 700; font-size: 13px; display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.deep .dh a { color: #1a1a1a; text-decoration: none; border-bottom: 1px dotted #c09070; }
+.deep .dh a:hover { color: #c8472b; }
+.deep .dh .stats { font-size: 11.5px; color: #a03015; white-space: nowrap; }
+.deep .db { padding: 10px 14px; }
+.q { color: #555; font-style: italic; font-size: 12.5px; margin: 3px 0 3px 8px; }
+.q b { color: #a03015; font-style: normal; }
+.verdict { margin-top: 8px; padding: 8px 12px; background: #fbf8f0; border-radius: 5px; font-size: 12.5px; }
+.verdict b { color: #7a5000; }
+.yt { font-size: 10px; color: #c8472b; font-weight: 700; margin-left: 3px; }
+footer { padding: 16px 28px; background: #fafafa; border-top: 1px solid #e0e0e0; font-size: 11px; color: #888; text-align: center; }
+</style>
+</head>
+<body>
+<div class="app">
+
+<header class="app-header">
+  <div>
+    <h1>상용차 콘텐츠 클리핑</h1>
+    <div class="subtitle">유튜브 여론 · 경쟁사 채널 · 커뮤니티 · 뉴스 · 정책 &nbsp;|&nbsp; 2026년 7월 29일 수요일</div>
+  </div>
+  <div class="quick">
+    <div class="item"><div class="v" style="color:#ffd94d">🟡 주목</div><div class="l">오늘의 신호</div></div>
+    <div class="item"><div class="v">25.6만</div><div class="l">최대 확산 콘텐츠</div></div>
+    <div class="item"><div class="v">8건</div><div class="l">자사 언급</div></div>
+    <div class="item"><div class="v">10개</div><div class="l">모니터링 채널</div></div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button data-tab="summary" class="active">📊 요약</button>
+  <button data-tab="youtube">🎬 유튜브</button>
+  <button data-tab="news">📰 뉴스·정책</button>
+  <button data-tab="community">💬 커뮤니티</button>
+</nav>
+
+<!-- 요약 -->
+<div class="tab-pane active" id="tab-summary">
+  <div class="kpi-row">
+    <div class="kpi accent"><div class="label">24시간 최대 확산</div><div class="v accent">25.6만 뷰</div><div class="sub">권마키 "성공률 99%" 쇼츠 · 하루 +3.8만</div></div>
+    <div class="kpi neg"><div class="label">경쟁사 리콜</div><div class="v neg">36대</div><div class="sub">벤츠 아록스·악트로스 · 조향 볼조인트</div></div>
+    <div class="kpi info"><div class="label">자사 언급 신규</div><div class="v">8건</div><div class="sub">특장 제작 · 중고 매물 · 정비/용품</div></div>
+    <div class="kpi"><div class="label">공식 채널 신규 발신</div><div class="v">0건</div><div class="sub">모니터링 6곳 전부 무업로드</div></div>
+  </div>
+
+  <div class="section">
+    <h2>핵심 요약</h2>
+    <div class="note">
+      <ul>
+        <li><b>벤츠트럭 리콜 — 아록스·악트로스 36대, 조향 상실 가능성.</b> 드래그링크 볼조인트 열처리 미완료로 경도 부족. 카링TV '1억 수리비 보증 분쟁' 여론(4.8만 뷰·댓글 310)이 아직 살아있는 시점에 겹침.</li>
+        <li><b>엑시언트 실사용 고장 콘텐츠 신규 발생.</b> 트럭커 태권v "라디에이터 터짐 68.4만km" 4,304뷰·댓글 48. "저도 얼마전 터졌습니다"(👍3) 동조와 "차 관리를 못하는듯" 귀책론이 동시 등장 — 어제까지의 일방적 품질 비판과 달리 <b>여론 분화</b>.</li>
+        <li><b>자사 언급 8건은 전부 실무형 — 최대 확산은 특장사 콘텐츠.</b> 한성특장 "더쎈 윙바디" 1,312뷰. 같은 채널이 같은 포맷으로 만든 "엑시언트 수납장"(615뷰)의 2배.</li>
+        <li><b>대중 확산은 여전히 쇼츠·인플루언서 독점.</b> 권마키 27초 쇼츠가 하루 3.8만 추가 확산. 공식 채널 6곳은 24시간 신규 0건, 자사는 4/22 이후 3개월 공백 지속.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>오늘의 시사점 <span style="font-weight:400; font-size:11px; color:#999">(분석 의견)</span></h2>
+    <div class="note warn">
+      <ul>
+        <li><b>수입 프리미엄에 균열이 나는 국면</b> — 벤츠는 같은 주에 '보증 거부 1억 수리비' 여론과 '조향 관련 리콜'을 동시에 맞음. 어제 확인된 "수입=동경, 국산=불신" 구도에 처음으로 반대 방향 재료가 생김.</li>
+        <li><b>자사 접점은 특장사가 만들고 있음</b> — 한성특장이 더쎈·엑시언트를 동일 포맷으로 병행 제작하고 더쎈 쪽이 2배 확산. 자사 제품이 실무 콘텐츠 생태계에서는 경쟁 우위를 갖고 있다는 신호.</li>
+        <li><b>구매 결정 변수가 '정비비'로 이동</b> — 올트럭 "타타대우 수리비 얼마예요?" 같은 <u>정비비 비교 검색 수요형</u> 콘텐츠가 등장. 차값·상품성이 아니라 보유비용 투명성이 다음 전장.</li>
+        <li><b>엑시언트 여론은 '분화 국면'</b> — 품질 비판 일변도에서 차주 관리 귀책론이 섞이기 시작. 경쟁사 품질 이슈에 편승하는 메시지는 역풍 위험이 커짐 — 비교보다 자사 실측·보유비용 근거 제시가 유효.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 유튜브 -->
+<div class="tab-pane" id="tab-youtube">
+  <div class="two-col">
+    <div class="section">
+      <h2>경쟁사 · 공식 채널</h2>
+      <div class="desc">모니터링 6곳 · 최근 24시간 신규 업로드 <b>0건</b></div>
+      <div class="item-list">
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/channel/UCgHPdMZMhYWUf2MUGNrH48g" target="_blank">볼보트럭코리아<span class="yt">▶</span></a><span class="status idle">신규 없음</span></div>
+        <div class="desc">최근작 <a href="https://www.youtube.com/watch?v=7fiWgM28JTA" target="_blank">연비향상 프로젝트⑤ 오르막 주행</a>(7/23, 479뷰·18분30초). 7월 4편으로 발신량은 최다지만 조회수는 세 자릿수 — <b>발신량 ≠ 도달</b>.</div>
+        <div class="meta">구독 14,500 · 7월 4편</div></div>
+
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/channel/UCldYFZ377kIjLybEsK9YR4g" target="_blank">타타대우모빌리티 (자사)<span class="yt">▶</span></a><span class="status off">공백 3개월</span></div>
+        <div class="desc">4/22 <a href="https://www.youtube.com/watch?v=sfjdf0BiLQc" target="_blank">하이쎈 출시 영상</a>이 마지막. 경쟁사 리콜·품질 이슈가 겹치는 지금이 발신 재개 적기.</div>
+        <div class="meta">구독 4,160 · 98일째 무업로드</div></div>
+
+        <div class="news-item"><div class="title">STAR TRUCK KOREA (벤츠) · 스카니아코리아 · MAN코리아<span class="status idle">저활동</span></div>
+        <div class="desc">벤츠 최근작 7/10, 스카니아 7/2, MAN 6/10. <b>벤츠는 리콜 발표(7/24) 이후에도 채널 대응 콘텐츠 없음</b> — 공식 해명 창구 부재.</div>
+        <div class="meta">구독 82 / 5,540 / 5,850</div></div>
+
+        <div class="news-item"><div class="title">현대 트럭앤버스<span class="status off">휴면</span></div>
+        <div class="desc">활성 공식 CV 채널 부재. 오늘도 엑시언트 콘텐츠는 전부 개인 차주·중고상·특장사가 생산 — 라디에이터 고장 이슈에 대응 주체 없음.</div>
+        <div class="meta">구독 10,800</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>인플루언서 확산 랭킹</h2>
+      <div class="desc">신규 업로드 0건 · 기존 콘텐츠의 24시간 확산 증분</div>
+      <table>
+        <tr><th>콘텐츠</th><th>채널</th><th>조회수</th><th>24h 증분</th></tr>
+        <tr><td><span class="tag hot">1위</span><a href="https://www.youtube.com/watch?v=4ZqWuQdpE24" target="_blank">스카니아를 사지 않는 이유<span class="yt">▶</span></a></td><td>권마키</td><td><b>431,907</b></td><td>+28,073</td></tr>
+        <tr><td><span class="tag hot">🔥</span><a href="https://www.youtube.com/shorts/_GV0NT9uPVk" target="_blank">성공률 99% (쇼츠)<span class="yt">▶</span></a></td><td>권마키</td><td><b>255,906</b></td><td><b>+37,914</b></td></tr>
+        <tr><td><a href="https://www.youtube.com/shorts/9rIu_ezxeOM" target="_blank">트럭 제조사별 시동 소리 (쇼츠)<span class="yt">▶</span></a></td><td>권마키</td><td>109,525</td><td>+3,300</td></tr>
+        <tr><td><a href="https://www.youtube.com/watch?v=XUsJX61n8ps" target="_blank">신형 벤츠 덤프 많은 변화들<span class="yt">▶</span></a></td><td>카링TV</td><td>11,912</td><td>+217</td></tr>
+        <tr><td><span class="tag neg">신규</span><a href="https://www.youtube.com/watch?v=Pao3pExQEJ4" target="_blank">엑시언트 라디에이터 터짐<span class="yt">▶</span></a></td><td>트럭커 태권v</td><td>4,304</td><td>신규(7/28)</td></tr>
+      </table>
+      <div class="meta" style="font-size:11.5px; color:#888; margin-top:8px">카링TV·홍시car 24시간 신규 없음. 홍시car는 승용 위주로 상용차 필터 제외.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>이슈 콘텐츠 심층 — 댓글이 말해주는 것</h2>
+    <div class="desc">신규·확산 콘텐츠의 실제 댓글 여론 구조 · 인용 댓글은 개인 의견</div>
+
+    <div class="deep">
+      <div class="dh"><span>🔥 이슈 #1 · <a href="https://www.youtube.com/watch?v=Pao3pExQEJ4" target="_blank">트럭커 태권v "엑시언트 라디에이터 터짐 68.4만km"<span class="yt">▶</span></a> <span class="tag neg">신규</span></span><span class="stats">4,304뷰 · 💬48 · 19분54초</span></div>
+      <div class="db">
+        <div class="q">"저도 얼마전 터졌습니다. 하여간 드럽게도 약한 트럭입니다😊" <b>👍3</b></div>
+        <div class="q">"1등 ㅋㅋㅋ H엔진이 문제가 많네요" <b>👍2</b></div>
+        <div class="q">"엑시언트 고질병, 엔진 마력수에 비해서 라지에타 용량이 부족해서 열부하가 많이 걸린다네요" <b>👍1</b></div>
+        <div class="q">"기변이 답인거 같아요 잘생각해보세요" <b>👍1 — 기변 권유</b></div>
+        <div class="q">"자꾸보니 님하고 화물차랑 사대가 안 맞네요… 또 고장 날듯요" / "내 눈에도 차관리를 못하는듯" <b>👍1 — 차주 귀책론</b></div>
+        <div class="verdict"><b>판독:</b> 어제까지의 엑시언트 여론이 '제조사 품질 불신' 일변도였다면, 오늘 신규 콘텐츠에서는 <b>동조론(고질병·나도 터짐)과 차주 귀책론(관리 부실·중고차 잘못 삼)이 동시에</b> 나타남. 댓글 상위는 정비 노하우·오일 선택 조언이 차지 — 고관여 차주층은 브랜드 비난보다 '보유비용 관리'로 대화를 옮기는 중. <b>경쟁사 때리기 메시지는 이 층에 잘 먹히지 않음</b>.</div>
+      </div>
+    </div>
+
+    <div class="deep">
+      <div class="dh"><span>🔥 이슈 #2 · <a href="https://www.youtube.com/shorts/_GV0NT9uPVk" target="_blank">권마키 "성공률 99%" (27초 쇼츠)<span class="yt">▶</span></a> <span class="tag hot">확산중</span></span><span class="stats">25.6만 뷰 · 👍1,441 · 💬138 · 하루 +3.8만</span></div>
+      <div class="db">
+        <div class="q">"뒤따라가면 존나 안 감 / 추월시도하면 도망감 / 3회 이상 반복시 영상 첨부해서 고의적인 진로방해로 형사고발" <b>👍215</b></div>
+        <div class="q">"4차로에서 저러면 더 미쳐요. 매일 한대씩 있음. 추월할려고 3차로 넣으면 속도 올림" <b>👍81</b></div>
+        <div class="q">"대부분 핸드폰 보거나 한손으로 전화통화 중.." <b>👍65</b></div>
+        <div class="q">"버스에서 보면 승용차들이 저럽디다.. 꼭 1차로에서.." <b>👍45</b></div>
+        <div class="verdict"><b>판독:</b> 브랜드 무관한 <b>'운전 상황 공감' 콘텐츠</b>가 25만 뷰로 이번 주 최대 확산. 트럭 카테고리의 대중 도달은 제품 리뷰가 아니라 '트럭커의 일상 분노·공감'에서 발생하고 있음. 제조사 메시지가 들어갈 자리는 스펙 설명이 아니라 <b>이 정서적 서사</b>라는 점이 3일 연속 같은 패턴으로 확인됨.</div>
+      </div>
+    </div>
+
+    <div class="deep">
+      <div class="dh"><span>🔴 이슈 #3 · <a href="http://www.cvinfo.com/news/articleView.html?idxno=31498" target="_blank">벤츠트럭(스타트럭코리아) 아록스·악트로스 리콜</a> <span class="tag neg">품질</span></span><span class="stats">36대 · 7/24 시행</span></div>
+      <div class="db">
+        <div class="q">결함 내용: 드래그링크 볼조인트 <b>열처리 공정 미완료 → 재질 경도 부족</b>. 운행 중 마모·피로강도 저하로 볼조인트 파손 시 <b>조향 기능 상실 가능</b>.</div>
+        <div class="q">조치: 7/24부터 우편·SMS 통지, 자비 수리자는 비용 보상 청구 가능.</div>
+        <div class="verdict"><b>판독:</b> 대수는 36대로 작지만 결함 성격이 <b>조향 상실</b>이라 확산 시 파급이 큰 유형. 지난주 카링TV '1억 수리비 보증 분쟁'(4.8만 뷰·댓글 310, 댓글 비율 0.65%의 이례적 고관여)과 <b>같은 브랜드에서 2주 연속 품질·보증 이슈</b>가 겹침. 유튜브 여론화는 아직 없으나 카링TV가 다룰 경우 확산 가능성 높음 — <b>모니터링 우선순위 상향</b> 권장.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="section">
+      <h2>자사 언급 레이더 <span style="font-weight:400;font-size:11px;color:#999">최근 24시간 · 8건</span></h2>
+      <div class="desc">타타대우 · 맥쎈 · 더쎈 · 프리마 언급 신규 콘텐츠</div>
+      <div class="item-list">
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/MhVM5tuHFnA" target="_blank">더쎈 윙바디 제작 (쇼츠)<span class="yt">▶</span></a></div>
+        <div class="desc">자사 언급 중 <b>최대 확산 1,312뷰</b>. 같은 채널의 엑시언트 수납장(615뷰) 대비 2.1배.</div>
+        <div class="meta">주)한성특장 · 특장 제작 · 07-28 <span class="tag pos">긍정/B2B</span></div></div>
+
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/3Tk-Rq1bPhs" target="_blank">멕쎈 수납장 · 실내 정리정돈 (쇼츠)<span class="yt">▶</span></a></div>
+        <div class="desc">526뷰. 차주 실사용 편의 개조 — 실내 수납 니즈가 자사·경쟁사 공통 소구점으로 콘텐츠화.</div>
+        <div class="meta">주)한성특장 · 특장 제작 · 07-28 <span class="tag pos">긍정/B2B</span></div></div>
+
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/7vfuAe5bZKk" target="_blank">"타타대우 수리비 얼마예요?" 정비소에 아직도 전화 돌리시나요<span class="yt">▶</span></a></div>
+        <div class="desc">상용차 수리비 가격비교 서비스 홍보. 270뷰. <b>자사 차량 정비비가 검색 수요 키워드로 사용됨</b> — 보유비용 투명성 니즈 신호.</div>
+        <div class="meta">올트럭(상용차 정비) · 정비/서비스 · 07-28 <span class="tag neu">중립/주목</span></div></div>
+
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/OTrEfCx-Z5s" target="_blank">중고 트랙터 프리마 추레라 560마력 오토미션<span class="yt">▶</span></a> · <a href="https://www.youtube.com/watch?v=08wj0Q338-8" target="_blank">매물 안내(5분)<span class="yt">▶</span></a></div>
+        <div class="desc">470뷰 / 24뷰. 프리마 트랙터 중고 유통 활발 — 잔가 시장 건재.</div>
+        <div class="meta">뉴트럭 최경일 · 중고 매매 · 07-28 <span class="tag neu">중립/잔가</span></div></div>
+
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/watch?v=CMmSILzHwWA" target="_blank">국내최저가 25년 맥쎈 9톤 윙바디 9m80 (1억2,500만원)<span class="yt">▶</span></a> · <a href="https://www.youtube.com/shorts/VY-RAyPrdKc" target="_blank">프리마 22.4톤 우드칩<span class="yt">▶</span></a></div>
+        <div class="desc">신차급 맥쎈 실매물 가격 공개 콘텐츠. 조회수는 한 자릿수 — 도달은 미미.</div>
+        <div class="meta">인기트럭 성인기 · 아이트럭 · 중고 매매 · 07-28 <span class="tag neu">중립</span></div></div>
+
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/FnfSZFfDxMQ" target="_blank">맥쎈 트럭 고유가 시대 연비를 높인다 · 전 차종 설치<span class="yt">▶</span></a></div>
+        <div class="desc">연비 개선 용품 마케팅. 자사 차명이 '연비 개선 수요' 키워드로 반복 활용됨(7/24에 이어 재게시).</div>
+        <div class="meta">쓰리엔텍 · 튜닝/용품 · 07-28 <span class="tag neu">중립</span></div></div>
+      </div>
+      <div class="verdict" style="margin-top:10px"><b>판독:</b> 24시간 8건, 부정 톤 <b>0건</b>. 구성은 어제와 동일하게 특장·중고·용품 중심이나 오늘은 <b>특장사 제작 콘텐츠가 자사 언급 확산 1·2위를 차지</b>. 한성특장이 더쎈·엑시언트를 동일 포맷으로 병행 제작하는데 더쎈 쪽 조회수가 2배 — 실무 채널에서는 자사 제품이 경쟁 우위를 보이는 국면. 다만 전 건이 1,300뷰 이하로 <b>대중 도달은 여전히 부재</b>.</div>
+    </div>
+
+    <div class="section">
+      <h2>쇼츠 동향</h2>
+      <div class="desc">60초 이하 — 오늘 수집분의 8할이 쇼츠</div>
+      <table>
+        <tr><th>쇼츠</th><th>채널</th><th>길이</th><th>조회수</th></tr>
+        <tr><td><span class="tag hot">🔥</span><a href="https://www.youtube.com/shorts/_GV0NT9uPVk" target="_blank">성공률 99%<span class="yt">▶</span></a></td><td>권마키</td><td>27초</td><td><b>255,906</b></td></tr>
+        <tr><td><a href="https://www.youtube.com/shorts/9rIu_ezxeOM" target="_blank">트럭 제조사별 시동 소리<span class="yt">▶</span></a></td><td>권마키</td><td>31초</td><td>109,525</td></tr>
+        <tr><td><a href="https://www.youtube.com/shorts/4O0OUgg3ifA" target="_blank">빗길 사고 현장 #더뉴엑시언트<span class="yt">▶</span></a></td><td>라이프트럭TV</td><td>34초</td><td>1,964</td></tr>
+        <tr><td><span class="tag pos">자사</span><a href="https://www.youtube.com/shorts/MhVM5tuHFnA" target="_blank">더쎈 윙바디<span class="yt">▶</span></a></td><td>한성특장</td><td>57초</td><td>1,312</td></tr>
+        <tr><td><a href="https://www.youtube.com/shorts/ZvhLTMOsPus" target="_blank">엑시언트 수납장<span class="yt">▶</span></a></td><td>한성특장</td><td>50초</td><td>615</td></tr>
+        <tr><td><span class="tag pos">자사</span><a href="https://www.youtube.com/shorts/3Tk-Rq1bPhs" target="_blank">멕쎈 수납장<span class="yt">▶</span></a></td><td>한성특장</td><td>56초</td><td>526</td></tr>
+      </table>
+      <div class="verdict" style="margin-top:10px"><b>판독:</b> 확산 규모가 <b>정서형 쇼츠(25만) ≫ 제품 실무 쇼츠(1천)</b>로 200배 이상 벌어짐. 실무 쇼츠는 도달은 작지만 구매 직전 고객이 보는 콘텐츠라 전환 가치가 다름 — 두 층을 같은 지표로 보면 안 됨. 자사 관련 쇼츠 2건이 모두 같은 특장사 1곳에서 나온 점은 <b>제작 주체 편중 리스크</b>.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 뉴스 -->
+<div class="tab-pane" id="tab-news">
+  <div class="two-col">
+    <div class="section"><h2>자사 (타타대우)</h2>
+      <div class="item-list">
+        <div class="news-item"><div class="desc" style="color:#999">최근 24시간 신규 기사 없음. 직전 이슈는 7월 중순 <b>하이쎈 1호차 인도</b> 보도(유통 채널 재생산 콘텐츠 다수) — 출시 초기 보도 사이클 종료 국면.</div>
+        <div class="meta">모니터링: 상용차매거진 · 트럭타임즈 · 일반 매체</div></div>
+      </div>
+    </div>
+    <div class="section"><h2>상용차 산업</h2>
+      <div class="item-list">
+        <div class="news-item"><div class="title"><a href="http://www.cvinfo.com/news/articleView.html?idxno=31499" target="_blank">만트럭버스, 글로벌 판매량 증가…전기버스가 견인</a> <span class="tag comp">경쟁사</span></div>
+        <div class="desc">상반기 글로벌 약 5.1만대(+8%). 순수 전기차 약 1,100대(+37%), 그중 절반이 전기버스. 어려운 시장에서도 제품군 다변화로 방어했다는 자평.</div>
+        <div class="meta">상용차매거진 · 07-24</div></div>
+        <div class="news-item"><div class="title"><a href="http://www.cvinfo.com/news/articleView.html?idxno=31495" target="_blank">CJ대한통운 '더 운반', 화주 7,000개사·차주 7만명 확보</a> <span class="tag neu">생태계</span></div>
+        <div class="desc">화물 중개 플랫폼 규모 확대 — 차주 접점을 플랫폼이 선점하는 흐름. 제조사 직접 고객관계의 상대적 약화 요인.</div>
+        <div class="meta">상용차매거진</div></div>
+        <div class="news-item"><div class="title"><a href="http://www.cvinfo.com/news/articleView.html?idxno=31502" target="_blank">이베코코리아, 브랜드 체험 행사 '이베코 데이' 성료</a> <span class="tag comp">수입</span></div>
+        <div class="desc">수입 브랜드의 오프라인 체험 마케팅 지속 — 유튜브 공백을 현장 접점으로 메우는 패턴.</div>
+        <div class="meta">상용차매거진</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="section"><h2>경쟁사</h2>
+      <div class="item-list">
+        <div class="news-item"><div class="title"><a href="http://www.cvinfo.com/news/articleView.html?idxno=31498" target="_blank">[리콜] 스타트럭코리아(벤츠) 아록스·악트로스 36대</a> <span class="tag neg">품질</span></div>
+        <div class="desc">드래그링크 볼조인트 열처리 미완료 → 경도 부족. 파손 시 조향 기능 상실 우려. 7/24부터 시정조치, 자비 수리비 보상 청구 가능. <b>2주 연속 벤츠 품질·보증 이슈</b>.</div>
+        <div class="meta">상용차매거진 · 07-24</div></div>
+        <div class="news-item"><div class="title"><a href="http://www.cvinfo.com/news/articleView.html?idxno=31510" target="_blank">현대차, 상용차용 핵심부품 국산화 추진</a> <span class="tag comp">경쟁사</span></div>
+        <div class="desc">대형 상용차용 액추에이터 국산화 R&amp;D, 3년간 정부 80억원 지원. 기획·개발·실차검증·양산을 협력사와 연계. <b>2029년 트럭·버스 적용 목표</b> — 원가·공급망 구조 개선 시도.</div>
+        <div class="meta">상용차매거진 · 07-27</div></div>
+        <div class="news-item"><div class="title"><a href="http://www.cvinfo.com/news/articleView.html?idxno=31512" target="_blank">현대차, '현대 유니버설 솔루션' 임산부 특화차량 도입</a> <span class="tag comp">경쟁사</span></div>
+        <div class="desc">특수목적 개조차 영역 확장. 상용 기반 특장 브랜딩을 사회적 가치 서사로 연결하는 방식.</div>
+        <div class="meta">상용차매거진</div></div>
+      </div>
+    </div>
+    <div class="section"><h2>정책 · 환경</h2>
+      <div class="item-list">
+        <div class="news-item"><div class="title"><a href="http://www.cvinfo.com/news/articleView.html?idxno=31503" target="_blank">TS, 화물차 DTG 무상점검·안전운전 이벤트 진행</a> <span class="tag pol">정책</span></div>
+        <div class="desc">한국교통안전공단, 고속도로 휴게소·화물터미널 등 <b>전국 28곳</b>에서 12/31까지 DTG 무상점검. 전원 불량·거치 문제는 현장 무상 수리. 9/1까지 안전운전 이벤트, 우수 운전자 100명에게 20만원 상당 DTG 지급.</div>
+        <div class="meta">상용차매거진 · 07-27</div></div>
+        <div class="news-item"><div class="title"><a href="http://www.cvinfo.com/news/articleView.html?idxno=31443" target="_blank">"우회전 사각지대, 기술로 막아야"…창림모아츠 보행자 안전 시스템 주목</a> <span class="tag pol">안전</span></div>
+        <div class="desc">대형 트럭·버스 우회전 사고 대응. 운전자에게 경고음·시각 알림, 보행자에게는 외부 스피커로 음성 경고. 시속 30km 이하 저속 우회전에서만 작동(스쿨존 기준). 전기 상용차 확대로 정온성이 높아지며 필요성 부각.</div>
+        <div class="meta">상용차매거진 · 07-28</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 커뮤니티 -->
+<div class="tab-pane" id="tab-community">
+  <div class="note"><b>보배드림 트럭·버스·중기</b> — 게시글은 개인 의견이며 표본이 작습니다(n=소수). 확산 추세로 판단하세요.</div>
+  <div class="two-col">
+    <div class="section"><h2>자사 관련</h2>
+      <div class="item-list">
+        <div class="news-item"><div class="desc" style="color:#999">최근 24시간 자사 관련 신규 게시글 <b>없음</b>. 직전 건은 7/25 "노부스 동족"(417뷰·댓글1) — 노후 차량 목격 공유성 글로 이슈성 없음.</div>
+        <div class="meta">보배드림 · 07-25 이후 신규 없음</div></div>
+        <div class="news-item"><div class="desc">⚠ 어제 확인된 <a href="https://www.bobaedream.co.kr/list?code=truck" target="_blank">"프리마 440 에러"(7/23) AS 문의</a>는 추가 확산·후속 글 없음 — 단건으로 종결된 것으로 판단.</div>
+        <div class="meta">추적 종료 판단</div></div>
+      </div>
+    </div>
+    <div class="section"><h2>경쟁사 · 시장</h2>
+      <div class="item-list">
+        <div class="news-item"><div class="title"><a href="https://www.bobaedream.co.kr/list?code=truck" target="_blank">"볼보 FE 350 현대에버다임 36m 소형 고가사다리소방차"</a> <span class="tag neu">중립</span></div>
+        <div class="desc">24시간 내 유일한 신규 글(54뷰·댓글 0). 특수목적차 목격 공유 — 여론성 없음. <b>수입 섀시 + 국내 특장</b> 조합이 소방·관공서 영역에서 자연스럽게 노출되는 사례.</div>
+        <div class="meta">보배드림 · 07-28</div></div>
+        <div class="news-item"><div class="title">"1년도 못쓰는 엑시언트 발전기"(7/25) · "엑시언트 저상"(7/25) <span class="tag neg">품질비판</span></div>
+        <div class="desc">기존 글 조회수만 증가(268→? / 437→570), 신규 반박·확산 글은 없음. 유튜브의 엑시언트 라디에이터 이슈와 커뮤니티가 아직 연결되지 않은 상태.</div>
+        <div class="meta">보배드림 · 07-25 (조회수 증가 추적)</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+상용차 콘텐츠 클리핑 · 소스: YouTube Data API(모니터링 채널 10곳 + 댓글) · 상용차매거진(cvinfo) · 보배드림 · 2026-07-29 08:00(KST) 수집 · 대상 기간 최근 24시간<br>
+인용된 댓글·게시글은 개인 의견이며, 시사점은 분석 의견입니다. 공개 정보 기반으로 작성되었습니다.
+</footer>
+</div>
+
+<script>
+document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.tabs button').forEach(x => x.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById('tab-' + b.dataset.tab).classList.add('active');
+}));
+</script>
+</body>
+</html>

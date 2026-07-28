@@ -9,7 +9,9 @@ for path in sorted(glob.glob(os.path.join(CLIP_DIR, '*.html')), reverse=True):
     date = os.path.basename(path).replace('.html', '')
     s = open(path, encoding='utf-8').read()
     # 신호등
-    m = re.search(r'<div class="light"><span class="dot"></span><b>([^<]+)</b>', s)
+    m = re.search(r'<div class="v"[^>]*>[^가-힣]*(평온|주목|이슈)</div>', s)
+    if not m:
+        m = re.search(r'<div class="light"><span class="dot"></span><b>([^<]+)</b>', s)
     light = m.group(1) if m else '평온'
     # 요약 첫 항목
     sums = re.findall(r'<li><b>(.*?)</b>(.*?)</li>', s, re.S)

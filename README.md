@@ -1,8 +1,8 @@
-# TDM 상용차 데일리 클리핑
+# 상용차 콘텐츠 클리핑
 
 국내 중대형 상용차 시장의 유튜브 여론·경쟁사 채널 동향·커뮤니티 이슈를 모니터링하는 자동 클리핑입니다.
 
-**웹으로 보기 →** https://jooosanghyun.github.io/tdm-clipping/
+**웹으로 보기 →** https://jooosanghyun.github.io/contents-clipping/
 
 ## 구성
 - `index.html` — 아카이브 (자동 생성, `build_index.py` 실행)

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>상용차 콘텐츠 클리핑 — 2026-08-12</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", "Noto Sans KR", sans-serif; background: #f4f4f2; color: #1a1a1a; font-size: 14px; line-height: 1.55; }
+.app { max-width: 1320px; margin: 0 auto; }
+.app-header { background: linear-gradient(135deg, #1a1a1a, #2a2a2a); color: white; padding: 18px 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+.app-header h1 { font-size: 19px; font-weight: 700; }
+.app-header .subtitle { font-size: 12px; opacity: 0.7; margin-top: 2px; }
+.app-header .quick { display: flex; gap: 18px; font-size: 12px; }
+.app-header .quick .item { text-align: right; line-height: 1.2; }
+.app-header .quick .v { font-size: 17px; font-weight: 700; }
+.app-header .quick .l { font-size: 10.5px; opacity: 0.7; }
+.tabs { display: flex; background: #fff; border-bottom: 1px solid #e0e0e0; padding: 0 16px; position: sticky; top: 0; z-index: 10; overflow-x: auto; }
+.tabs button { background: none; border: none; padding: 14px 16px; font-size: 13px; cursor: pointer; color: #666; border-bottom: 3px solid transparent; font-family: inherit; white-space: nowrap; font-weight: 500; }
+.tabs button:hover { color: #c8472b; background: #fafafa; }
+.tabs button.active { color: #c8472b; border-bottom-color: #c8472b; font-weight: 600; }
+.tab-pane { display: none; padding: 20px 24px; }
+.tab-pane.active { display: block; }
+.section { background: #fff; border: 1px solid #e6e6e6; border-radius: 10px; padding: 16px 20px; margin-bottom: 14px; }
+.section > h2 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.section .desc { font-size: 12px; color: #777; margin-bottom: 12px; }
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 14px; }
+.kpi { background: #fff; border: 1px solid #e6e6e6; border-radius: 10px; padding: 14px 18px; position: relative; overflow: hidden; }
+.kpi::before { content: ""; position: absolute; top: 0; left: 0; bottom: 0; width: 4px; background: #888; }
+.kpi.pos::before { background: #2a8f2a; }
+.kpi.neg::before { background: #c0392b; }
+.kpi.accent::before { background: #c8472b; }
+.kpi.info::before { background: #2c5aa0; }
+.kpi .label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.3px; }
+.kpi .v { font-size: 22px; font-weight: 700; margin-top: 4px; line-height: 1.1; }
+.kpi .v.neg { color: #c0392b; }
+.kpi .v.accent { color: #c8472b; }
+.kpi .sub { font-size: 11.5px; color: #666; margin-top: 4px; }
+.item-list { display: flex; flex-direction: column; gap: 8px; }
+.news-item { padding: 10px 12px; border: 1px solid #eee; border-radius: 6px; background: #fafafa; }
+.news-item .title { font-weight: 600; font-size: 13px; margin-bottom: 3px; }
+.news-item .title a { color: #1a1a1a; text-decoration: none; }
+.news-item .title a:hover { color: #c8472b; text-decoration: underline; }
+.news-item .desc { font-size: 12px; color: #555; }
+.news-item .meta { font-size: 10.5px; color: #999; margin-top: 4px; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+.note { background: #f0f5ff; border-left: 3px solid #5577cc; padding: 10px 14px; margin-bottom: 12px; font-size: 12.5px; color: #334; border-radius: 4px; }
+.note b { color: #224488; }
+.note.warn { background: #fff8e6; border-color: #c8a000; color: #5a4400; }
+.note.warn b { color: #885500; }
+.note ul { margin: 4px 0 0 18px; }
+.note li { margin: 4px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+th, td { padding: 7px 10px; text-align: right; border-bottom: 1px solid #eee; }
+th { background: #fafafa; font-weight: 600; color: #555; }
+th:first-child, td:first-child { text-align: left; font-weight: 600; }
+td a { color: #1a1a1a; text-decoration: none; border-bottom: 1px dotted #c09070; }
+td a:hover { color: #c8472b; }
+.tag { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 10.5px; font-weight: 600; margin-right: 4px; vertical-align: 1px; }
+.tag.neg { background: #fde8e6; color: #a82820; }
+.tag.pos { background: #e8f5e9; color: #2a7a2a; }
+.tag.comp { background: #e8eefa; color: #2c5aa0; }
+.tag.neu { background: #eee; color: #666; }
+.tag.pol { background: #f3e8fa; color: #7040a0; }
+.tag.hot { background: #c8472b; color: #fff; }
+.status { font-size: 10.5px; font-weight: 700; padding: 1px 8px; border-radius: 9px; float: right; }
+.status.on { background: #e8f5e9; color: #2a7a2a; }
+.status.off { background: #fde8e6; color: #a82820; }
+.status.idle { background: #eee; color: #777; }
+.deep { border: 1px solid #e6ddd0; border-radius: 8px; margin-bottom: 10px; overflow: hidden; background: #fff; }
+.deep .dh { background: #faf6f0; padding: 9px 14px; font-weight: 700; font-size: 13px; display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.deep .dh a { color: #1a1a1a; text-decoration: none; border-bottom: 1px dotted #c09070; }
+.deep .dh a:hover { color: #c8472b; }
+.deep .dh .stats { font-size: 11.5px; color: #a03015; white-space: nowrap; }
+.deep .db { padding: 10px 14px; }
+.q { color: #555; font-style: italic; font-size: 12.5px; margin: 3px 0 3px 8px; }
+.q b { color: #a03015; font-style: normal; }
+.verdict { margin-top: 8px; padding: 8px 12px; background: #fbf8f0; border-radius: 5px; font-size: 12.5px; }
+.verdict b { color: #7a5000; }
+.yt { font-size: 10px; color: #c8472b; font-weight: 700; margin-left: 3px; }
+footer { padding: 16px 28px; background: #fafafa; border-top: 1px solid #e0e0e0; font-size: 11px; color: #888; text-align: center; }
+</style>
+</head>
+<body>
+<div class="app">
+
+
+<header class="app-header">
+  <div>
+    <h1>상용차 콘텐츠 클리핑</h1>
+    <div class="subtitle">유튜브 여론 · 경쟁사 채널 · 커뮤니티 · 뉴스 · 정책 &nbsp;|&nbsp; 2026년 8월 12일 (수)</div>
+  </div>
+  <div class="quick">
+    <div class="item"><div class="v" style="color:#ffd94d">🟡 주목</div><div class="l">오늘의 신호</div></div>
+    <div class="item"><div class="v">7,845</div><div class="l">최대 확산 콘텐츠</div></div>
+    <div class="item"><div class="v">10건</div><div class="l">자사 언급 (24h)</div></div>
+    <div class="item"><div class="v">9개</div><div class="l">모니터링 채널</div></div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button data-tab="summary" class="active">📊 요약</button>
+  <button data-tab="youtube">🎬 유튜브</button>
+  <button data-tab="news">📰 뉴스·정책</button>
+  <button data-tab="community">💬 커뮤니티</button>
+</nav>
+
+<!-- 요약 -->
+<div class="tab-pane active" id="tab-summary">
+  <div class="kpi-row">
+    <div class="kpi accent"><div class="label">오늘의 이슈 1위</div><div class="v accent">그룹 재편</div><div class="sub">타타모터스–이베코 인수, 11월 초 완료 전망</div></div>
+    <div class="kpi neg"><div class="label">시장 경고 지표</div><div class="v neg">0.72%</div><div class="sub">상용차 할부 연체율 · 4년 만에 2.6배</div></div>
+    <div class="kpi info"><div class="label">자사 언급 콘텐츠</div><div class="v">10건</div><div class="sub">중고 매물 · 특장 · 용품 (24시간)</div></div>
+    <div class="kpi"><div class="label">자사 채널 발신</div><div class="v">0건</div><div class="sub">4/22 하이쎈 출시 이후 3.7개월 공백</div></div>
+  </div>
+
+  <div class="section">
+    <h2>핵심 요약</h2>
+    <div class="note">
+      <ul>
+        <li><b>모기업 타타모터스의 이베코 인수, 11월 초 완료 전망.</b> 마지막 규제 승인만 남았고 9월 초 공개매수 개시 예정(8/10 상용차매거진). 인도·신흥국 강자 + 유럽 상용차 브랜드의 결합으로 글로벌 경쟁 구도가 재편되는 국면.</li>
+        <li><b>상용차 할부 연체율 0.72% — 4년 만에 2.6배.</b> 5대 캐피탈 기준 잔액 2조 5,900억, 건설기계(덤프·믹서)는 연체율 1.43%. 운임은 정체·비용은 상승하는 '수익–비용 역전'이 원인으로 지목.</li>
+        <li><b>차주 여론의 화두는 '자율주행 = 운임 하락 공포'.</b> 카링TV 신규 영상(7,845뷰·댓글 60)의 댓글 다수가 일자리·운임 불안. 기술 논쟁보다 <i>생계</i> 프레임이 지배적.</li>
+        <li><b>MAN코리아, 8/4~8/7 5편 연속 고객 스토리 캠페인.</b> "305만km 주행 TGX 차주" 시리즈로 내구성·부품·연비 서사를 집중 선점 중. 조회수는 작지만(72~245뷰) 메시지 축적형 공세.</li>
+        <li><b>자사 언급은 24시간 10건 — 전량 소규모 중고·특장·용품 채널.</b> 노부스·프리마 중고 매물, 하이쎈 에어혼 시공, 맥쎈 연비 용품 등. 생태계는 살아있으나 대중 도달형 콘텐츠는 부재.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>오늘의 시사점 <span style="font-weight:400; font-size:11px; color:#999">(분석 의견)</span></h2>
+    <div class="note warn">
+      <ul>
+        <li><b>그룹 재편은 '글로벌 상용차 그룹' 서사의 재료</b> — 국내 여론에서 자사는 여전히 '대우 후신'으로 소비된다. 모기업의 유럽 브랜드 편입은 기술·부품·품질 신뢰 서사를 갱신할 드문 계기이며, 국내 확정 사항이 없더라도 업계 담론에서 자사 위상을 다시 놓는 소재가 될 수 있다.</li>
+        <li><b>연체율 급등은 판매 전선의 선행 경고</b> — 할부 연체 상승은 ①신차 구매력 위축 ②중고 매물 증가에 따른 잔가 하락으로 이어진다. 실제로 오늘 자사 언급 10건 중 절반 이상이 중고 매물 콘텐츠였다. 금융 프로그램·잔가 보장 메시지의 시의성이 높아지는 구간.</li>
+        <li><b>차주 불안의 언어는 '기술'이 아니라 '운임'</b> — 자율주행 영상 댓글 최상위가 "차량값·유지비 대비 운송료가 안 맞는다"(👍7)였다. 신차 커뮤니케이션에서 스펙보다 <i>연비·정비비·가동률 = 수익성</i> 축이 더 잘 걸린다는 신호.</li>
+        <li><b>MAN이 선점 중인 '초고주행 내구성' 서사에 자사 공백</b> — 305만km 차주 인터뷰는 상용차 구매의 핵심 불안(내구성)을 정면으로 겨냥한 포맷이다. 자사 고주행 차주 사례는 실제 현장에 존재하나 콘텐츠화되지 않았다.</li>
+        <li><b>공식 채널 3.7개월 공백 지속</b> — 하이쎈 출시 이후 발신이 끊긴 상태. 오늘처럼 그룹 이슈·시장 이슈가 동시에 열린 시점은 발신 재개의 명분이 뚜렷한 구간.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 유튜브 -->
+<div class="tab-pane" id="tab-youtube">
+  <div class="two-col">
+    <div class="section">
+      <h2>경쟁사 · 공식 채널</h2>
+      <div class="desc">공식 채널 6곳 신규 업로드 및 활동 상태 (최근 24~72시간 기준)</div>
+      <div class="item-list">
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/channel/UCm0nj2siztcNWebygAAArIA" target="_blank">MAN Truck &amp; Bus Korea<span class="yt">▶</span></a><span class="status on">공세</span></div>
+        <div class="desc"><b>8/4~8/7 5편 연속 업로드.</b> <a href="https://www.youtube.com/watch?v=96B04JM9S0o" target="_blank">25년의 신뢰</a> · <a href="https://www.youtube.com/watch?v=XmtI5DjHKmc" target="_blank">305만km TGX의 추억</a> · <a href="https://www.youtube.com/watch?v=-ojrVZqSsTY" target="_blank">차주가 말하는 변하지 않는 성능</a> · <a href="https://www.youtube.com/watch?v=5mVKMN0IyXw" target="_blank">부품 선택의 기준</a> · <a href="https://www.youtube.com/watch?v=hDms2f7ppIA" target="_blank">17년 운행 차주의 연비 이야기</a>. 전부 30~50초 고객 증언 포맷.</div>
+        <div class="meta">조회수 72~245회 (도달은 미미, 서사 축적형) <span class="tag comp">경쟁</span></div></div>
+
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/channel/UCgHPdMZMhYWUf2MUGNrH48g" target="_blank">볼보트럭코리아<span class="yt">▶</span></a><span class="status idle">저활동</span></div>
+        <div class="desc">최근 업로드 <a href="https://www.youtube.com/watch?v=7fiWgM28JTA" target="_blank">연비향상 프로젝트⑤ (7/23)</a> 이후 신규 없음. 7월 집중 캠페인(13L 신형 엔진·정품부품) 종료 국면.</div>
+        <div class="meta">최근 24시간 신규 0건</div></div>
+
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/channel/UCldYFZ377kIjLybEsK9YR4g" target="_blank">타타대우모빌리티 (자사)<span class="yt">▶</span></a><span class="status off">공백 3.7개월</span></div>
+        <div class="desc"><a href="https://www.youtube.com/watch?v=sfjdf0BiLQc" target="_blank">4/22 하이쎈 출시 영상</a>이 마지막 업로드. 그룹 이슈·시장 이슈가 동시에 열린 오늘이 발신 재개 명분이 가장 뚜렷한 시점.</div>
+        <div class="meta">최근 24시간 신규 0건</div></div>
+
+        <div class="news-item"><div class="title">스카니아코리아 · STAR TRUCK KOREA(벤츠) · 현대 트럭앤버스<span class="status off">휴면</span></div>
+        <div class="desc">스카니아 최근 <a href="https://www.youtube.com/watch?v=bdafHupALW0" target="_blank">7/2 탑팀 영상</a>, 벤츠 최근 <a href="https://www.youtube.com/watch?v=yUQ3h6jq4Fk" target="_blank">7/10 차주 인터뷰</a> 이후 신규 없음. 현대는 활성 공식 CV 채널 부재 상태 지속.</div>
+        <div class="meta">최근 24시간 신규 0건</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>인플루언서 채널 — 확산 랭킹</h2>
+      <div class="desc">신규 상용차 콘텐츠 기준 · 상용차 키워드 필터 적용</div>
+      <table>
+        <tr><th>콘텐츠</th><th>채널</th><th>조회수</th><th>댓글</th></tr>
+        <tr><td><span class="tag hot">1위</span><a href="https://www.youtube.com/watch?v=bBl-HQRHV5U" target="_blank">[충격] 트럭 일자리 줄어들고, 화물 운송비 떨어질듯<span class="yt">▶</span></a></td><td>카링TV</td><td><b>7,845</b></td><td>60</td></tr>
+        <tr><td><a href="https://www.youtube.com/watch?v=e85W935JrLY" target="_blank">국내 최장 적재함·디지털미러 — 뉴 MAN TGM (제작지원)<span class="yt">▶</span></a></td><td>카링TV</td><td>기존 확산분</td><td>—</td></tr>
+        <tr><td><a href="https://www.youtube.com/watch?v=XUsJX61n8ps" target="_blank">신형 벤츠 덤프 많은 변화들<span class="yt">▶</span></a></td><td>카링TV</td><td>기존 확산분</td><td>—</td></tr>
+      </table>
+      <div class="meta" style="font-size:11.5px; color:#888; margin-top:8px">권마키: 최근 업로드 7/27 이후 신규 없음. 홍시car: 최근 5편 전부 승용(스타리아EV·중고차) → 상용차 필터로 제외.</div>
+      <div class="verdict" style="margin-top:10px"><b>판독:</b> 인플루언서 진영은 이번 주 소강. 카링TV 단독 발신이며 주제가 '차량'이 아니라 '산업 구조 불안'으로 옮겨간 점이 특징 — 제품 비교 담론이 잠시 비는 구간.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>이슈 콘텐츠 심층 — 댓글이 말해주는 것</h2>
+    <div class="desc">확산·고관여 콘텐츠의 실제 댓글 여론 구조 (인용은 개인 의견)</div>
+
+    <div class="deep">
+      <div class="dh"><span>🔥 이슈 #1 · <a href="https://www.youtube.com/watch?v=bBl-HQRHV5U" target="_blank">카링TV "트럭 일자리 줄어들고, 화물 운송비 떨어질듯"<span class="yt">▶</span></a></span><span class="stats">7,845뷰 · 👍209 · 💬60</span></div>
+      <div class="db">
+        <div class="q">"우리나라 화물시장은 더이상 차량값 및 유지비 대비 운송료가 맞지않는건 사실. 앞으로는 더 안맞는 시대가 올듯" <b>👍7</b></div>
+        <div class="q">"무인 자율주행 트럭 이슈를 보니 물류 산업의 큰 변화가 머지않았음이 실감… 현업 종사자분들이 겪을 충격을 완화할 정책적 논의도 함께 이뤄지면" <b>👍4</b></div>
+        <div class="q">"기술적으로는 이미 완성단계. 단지 법과 정책이 따라가지 못할 뿐" <b>👍2</b></div>
+        <div class="q">"지금도 운임이 싼데 더 싸지면 아무리 자율이래도 버텨낼 수 있을까요?" · "지금도 힘든데 힘 빠지는 소식이네요" <b>다수</b></div>
+        <div class="q">"우리나라는 길도 위치도 그지같은 곳이 많아서 자율주행하다가 차가 빡칠 수도" · "좁은 골목길, 날씨 등 모든 변수를 감당할 수 있을까" <b>👍2 / 회의론</b></div>
+        <div class="verdict"><b>판독:</b> 댓글 여론이 두 축으로 갈린다 — ①<b>운임·생계 불안</b>(최상위 공감), ②<b>국내 도로환경 기반 회의론</b>("10년은 걸린다"). 주목할 점은 <u>기술 자체에 대한 반감은 거의 없고, 불안의 언어가 전부 '운임'</u>이라는 것. 차주에게 신차 구매는 갈수록 '자산'이 아니라 '수익성 계산'의 문제로 이동하고 있으며, 이는 오늘 뉴스탭의 할부 연체율 0.72% 지표와 정확히 같은 방향을 가리킨다. <b>제조사 메시지가 스펙·감성보다 연비·정비비·가동률로 이동해야 하는 이유가 여론에서 실증된 사례.</b></div>
+      </div>
+    </div>
+
+    <div class="deep">
+      <div class="dh"><span>📌 이슈 #2 · <a href="https://www.youtube.com/watch?v=VtQHYGffpIs" target="_blank">신화트럭 "1톤 냉동탑차 → 타타대우 더쎈 4톤 광폭윙바디 증톤"<span class="yt">▶</span></a></span><span class="stats">179뷰 · 👍9 · 💬11 (댓글률 6.1%)</span></div>
+      <div class="db">
+        <div class="q">"1톤에서 증톤을 하신 것 정말 축하드립니다!!" <b>👍1</b></div>
+        <div class="q">"1톤에서 3.5톤 증톤이라 리스펙합니다!" · "좋은 차로 하셨네요, 사업 응원합니다" <b>👍1</b></div>
+        <div class="q">"전동 스위치가 탑 후면부에 있는 게 신기하네요~" <b>제품 관심</b></div>
+        <div class="verdict"><b>판독:</b> 조회수는 작지만 댓글률 6.1%로 이례적 고관여 — 자사 언급 콘텐츠 중 유일하게 <b>정서적 반응</b>이 붙었다. 핵심은 '더쎈'이 <u>1톤 → 준중형 증톤 사다리의 첫 칸</u>으로 소비된다는 점이며, 댓글 톤이 축하·응원 일색이라는 것은 이 서사가 우호적 감정과 결합돼 있다는 뜻. <b>'증톤 = 사업 성장'이라는 차주 성공 서사는 자사가 선점 가능한 몇 안 되는 감성 스토리라인이며, 현재 소규모 딜러 채널이 대신 만들어주고 있다.</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="section">
+      <h2>자사 언급 레이더</h2>
+      <div class="desc">최근 24시간 타타대우 · 맥쎈 · 구쎈 · 더쎈 · 하이쎈 · 프리마 · 노부스 등장 콘텐츠 (10건)</div>
+      <div class="item-list">
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/f-IfMOkWei8" target="_blank">타타대우 하이쎈 미국 정품 22인치 에어혼 시공<span class="yt">▶</span></a></div>
+        <div class="meta">제이트럭 우준오토 · 1,096뷰 · 8/11 <span class="tag pos">긍정/신차 커스텀</span></div>
+        <div class="desc" style="font-size:11.5px">신모델 하이쎈의 애프터마켓 커스텀 콘텐츠 첫 포착 — 출고 물량이 현장에 돌기 시작했다는 방증.</div></div>
+
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/watch?v=JkpUAl3oItk" target="_blank">타타대우 프리마 5톤 윙바디 2017년식 69만km 280마력<span class="yt">▶</span></a></div>
+        <div class="meta">아이트럭 · 366뷰 · 8/11 <span class="tag neu">중립/중고 잔가</span></div></div>
+
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/watch?v=bEgSZGfyhZ4" target="_blank">타타대우 노부스 15.5톤 살수차 2004년식 101만km<span class="yt">▶</span></a></div>
+        <div class="meta">아이트럭 · 8/11 <span class="tag neu">중립/노후 특장</span></div></div>
+
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/mTvKrlWuhaU" target="_blank">라이프탑콘솔 — 맥쎈·파비스·만트럭 차량 수납 용품<span class="yt">▶</span></a></div>
+        <div class="meta">라이프탑콘솔 · 227뷰 · 8/11 <span class="tag neu">중립/용품</span></div></div>
+
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/_AsPphfQ8sI" target="_blank">타타대우 맥쎈 트럭 기름값 아끼자 — 연비 향상 용품<span class="yt">▶</span></a></div>
+        <div class="meta">매직캡슐 · 8/11 <span class="tag neu">중립/연비 소구</span></div></div>
+
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/watch?v=DOyxwur8leo" target="_blank">타타대우 노부스 5톤 조인트·댐퍼쇼바 교환<span class="yt">▶</span></a></div>
+        <div class="meta">원우공업사 · 8/11 <span class="tag neu">중립/정비</span></div></div>
+
+        <div class="news-item"><div class="title">(주)디젤트럭 — 더쎈·노부스·프리마 시세 콘텐츠 3편 <a href="https://www.youtube.com/watch?v=ja_UWyCEjrU" target="_blank">①</a> <a href="https://www.youtube.com/watch?v=1c0fBJ34o6Y" target="_blank">②</a> <a href="https://www.youtube.com/watch?v=UJGgpXeurfs" target="_blank">③</a><span class="yt">▶</span></div>
+        <div class="meta">영업용 번호판 시세 연계 · 8/11 <span class="tag neu">중립/시세</span></div></div>
+
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/iF3vdhW59CI" target="_blank">"지난달 낸 타타대우 상용차 수리비, 혹시 나만 바가지?"<span class="yt">▶</span></a></div>
+        <div class="meta">올트럭 · 238뷰 · 8/10 <span class="tag neg">주의/정비비 프레임</span></div>
+        <div class="desc" style="font-size:11.5px">⚠ 정비비 견적 비교 서비스 마케팅 콘텐츠. 자사 브랜드명이 '바가지' 문구와 나란히 노출되는 구조 — 확산은 미미하나 반복 여부 모니터링 대상.</div></div>
+      </div>
+      <div class="verdict" style="margin-top:10px"><b>판독:</b> 24시간 10건은 평소 수준의 활발한 언급량이나 <b>구성이 눈에 띄게 중고·정비·용품 쪽으로 쏠려 있다</b>(10건 중 7건). 신차 출고 콘텐츠는 하이쎈 커스텀·더쎈 증톤 2건뿐. 오늘 뉴스탭의 할부 연체율 상승·차량 노후화 지표와 겹쳐 보면, <u>시장의 대화가 '새 차를 산다'에서 '지금 차를 오래 굴린다'로 이동</u>하는 흐름이 자사 언급 구성에도 그대로 나타나고 있다. 톤 자체는 부정 신호 없이 건강.</div>
+    </div>
+
+    <div class="section">
+      <h2>쇼츠 동향</h2>
+      <div class="desc">60초 이하 — 대중 접점의 새 전장</div>
+      <table>
+        <tr><th>쇼츠</th><th>채널</th><th>길이</th><th>조회수</th></tr>
+        <tr><td><span class="tag hot">🔥</span><a href="https://www.youtube.com/shorts/f-IfMOkWei8" target="_blank">하이쎈 22인치 에어혼 시공<span class="yt">▶</span></a></td><td>제이트럭</td><td>42초</td><td><b>1,096</b></td></tr>
+        <tr><td><a href="https://www.youtube.com/shorts/mTvKrlWuhaU" target="_blank">트럭 콘솔 수납 (맥쎈·파비스)<span class="yt">▶</span></a></td><td>라이프탑콘솔</td><td>41초</td><td>227</td></tr>
+        <tr><td><a href="https://www.youtube.com/shorts/iF3vdhW59CI" target="_blank">타타대우 수리비 영수증 확인<span class="yt">▶</span></a></td><td>올트럭</td><td>54초</td><td>238</td></tr>
+        <tr><td><a href="https://www.youtube.com/shorts/96B04JM9S0o" target="_blank">MAN 25년의 신뢰<span class="yt">▶</span></a></td><td>MAN코리아</td><td>34초</td><td>72</td></tr>
+        <tr><td><a href="https://www.youtube.com/shorts/XmtI5DjHKmc" target="_blank">305만km TGX의 추억<span class="yt">▶</span></a></td><td>MAN코리아</td><td>35초</td><td>245</td></tr>
+      </table>
+      <div class="verdict" style="margin-top:10px"><b>판독:</b> 오늘 쇼츠 1위가 <b>하이쎈 커스텀(1,096뷰)</b> — 공식 채널이 아닌 시공업체가 자사 신모델의 최다 도달 콘텐츠를 만들고 있다. MAN이 같은 30초 포맷으로 '내구성 증언'을 5편 연속 쌓는 동안 자사는 우호적 소재(하이쎈 출고 확대, 더쎈 증톤 성공기)가 현장에 존재함에도 브랜드 발신으로 전환되지 않고 있음. <u>쇼츠는 제작비가 아니라 '소재 발굴 체계'의 문제</u>라는 점이 오늘 데이터의 시사점.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 뉴스 -->
+<div class="tab-pane" id="tab-news">
+  <div class="two-col">
+    <div class="section"><h2>자사 (타타대우 · 타타모터스)</h2>
+      <div class="item-list">
+        <div class="news-item"><div class="title"><a href="https://www.cvinfo.com/news/articleView.html?idxno=31604" target="_blank">이베코그룹, 타타모터스 품으로…11월 초 인수 완료 전망</a> <span class="tag hot">주목</span></div>
+        <div class="desc">아직 확보하지 못한 마지막 규제 승인이 8월 말 예상되며, 승인 시 9월 초 공개매수 개시 → 11월 초 거래 완료 전망. 이베코 CFO는 11월 2일 사임 예정. 인도·신흥시장 중심의 타타모터스와 유럽 상용차 브랜드 이베코의 결합으로 글로벌 상용차 경쟁 구도 재편이 예상된다. <i>(기사에 국내·타타대우 관련 언급은 없음)</i></div>
+        <div class="meta">상용차매거진 · 08-10</div></div>
+      </div>
+    </div>
+    <div class="section"><h2>상용차 산업</h2>
+      <div class="item-list">
+        <div class="news-item"><div class="title"><a href="https://www.cvinfo.com/news/articleView.html?idxno=31594" target="_blank">상용차 할부 연체율 0.72%…4년 만에 2.6배로 증가</a> <span class="tag neg">경고</span></div>
+        <div class="desc">5대 캐피탈사 기준 26년 5월 할부 잔액 2조 5,900억(25년 말 대비 -2.5%, 21년 대비 +48%). 연체율은 22년 0.28% → 23년 0.35% → 24년 0.45% → 25년 0.54% → 26년 5월 <b>0.72%</b>. 건설기계(덤프·믹서)는 잔액 1,611억(+7.4%), 연체율 <b>1.43%</b>(전년 1.11%). 물동량·건설경기 위축에 유류·정비·보험·타이어비 상승이 겹친 '수익–비용 역전'이 원인.</div>
+        <div class="meta">상용차매거진 · 08-10 · 금감원 자료(김상훈 의원실)</div></div>
+
+        <div class="news-item"><div class="title"><a href="https://www.cvinfo.com/news/articleView.html?idxno=31576" target="_blank">화물운송시장 '이중 고령화'…운전자도 늙고 차량도 늙는다</a> <span class="tag neg">구조</span></div>
+        <div class="desc">한국교통연구원 기준 25년 화물차 운전자 평균연령 — 소형 65.5세 · 중형 63.0세 · 대형 58.7세 · 특수 58.3세. 소형 화물 운전자의 95% 이상이 50세 이상. 15년 초과 노후 화물차는 23년 70.0만대 → 26년 <b>75.0만대</b>(3년간 +5.6만대, +8%).</div>
+        <div class="meta">상용차매거진 · 08-07</div></div>
+
+        <div class="news-item"><div class="title"><a href="https://www.cvinfo.com/news/articleView.html?idxno=31574" target="_blank">상반기 트럭 기반 수소청소차 등록 '단 1대'</a> <span class="tag neu">친환경</span></div>
+        <div class="desc">보조금에도 불구하고 수소 특장 실수요 형성이 지연되고 있음.</div>
+        <div class="meta">상용차매거진 · 08-07</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="section"><h2>경쟁사</h2>
+      <div class="item-list">
+        <div class="news-item"><div class="title"><a href="http://www.trucktimes.co.kr/news/article.html?no=4317" target="_blank">현대차, 2026년 7월 중대형 버스·트럭 2,304대 판매</a> <span class="tag comp">경쟁</span></div>
+        <div class="desc">현대차 7월 글로벌 판매 318,454대(-5.1% YoY), 국내 48,113대(-14.4%). 회사 측은 산업 수요 약세·생산 차질·신차 대기 물량을 원인으로 설명.</div>
+        <div class="meta">트럭타임즈 · 08월</div></div>
+
+        <div class="news-item"><div class="title"><a href="http://www.trucktimes.co.kr/news/article.html?no=4316" target="_blank">기아, 2026년 7월 상용차 총 5,451대 판매</a> <span class="tag comp">경쟁</span></div>
+        <div class="meta">트럭타임즈 · 08월</div></div>
+
+        <div class="news-item"><div class="title"><a href="https://www.cvinfo.com/news/articleView.html?idxno=31601" target="_blank">만트럭, 유럽 최초 MCS 탑재 전기트럭 양산</a> <span class="tag comp">수입</span></div>
+        <div class="desc">메가와트 충전 시스템(MCS) 적용 전기트럭 양산 개시. 국내 유튜브에서도 MAN이 8/4~8/7 5편 연속 고객 스토리 캠페인을 전개 중 — 본사 기술 이슈 + 국내 신뢰 서사가 동시 가동되는 구조.</div>
+        <div class="meta">상용차매거진 · 08-06</div></div>
+
+        <div class="news-item"><div class="title"><a href="https://www.cvinfo.com/news/articleView.html?idxno=31605" target="_blank">中 슈퍼팬서 전기트럭, 오스트리아서 첫 양산 돌입</a> <span class="tag comp">중국</span></div>
+        <div class="desc">eTopas 600 — 621kWh CATL LFP 배터리, 총중량 42톤, 1회 충전 약 600km, 최대 646.7kW 동시 급속충전. 오스트리아 슈타이어 공장 SKD 조립, ZF·미쉐린·콘티넨탈 부품 사용. 독일·네덜란드·오스트리아·폴란드·체코에서 상업 운행 개시.</div>
+        <div class="meta">상용차매거진 · 08-10</div></div>
+      </div>
+    </div>
+    <div class="section"><h2>정책 · 환경</h2>
+      <div class="item-list">
+        <div class="news-item"><div class="title"><a href="https://www.cvinfo.com/news/articleView.html?idxno=31603" target="_blank">[리콜] 비와이디코리아 T4K — 1,692대</a> <span class="tag pol">리콜</span></div>
+        <div class="desc">주간주행등 관련 결함으로 1,692대 리콜. 국내 소형 전기화물 시장의 중국계 브랜드 품질 이슈.</div>
+        <div class="meta">상용차매거진 · 08-10</div></div>
+
+        <div class="news-item"><div class="title"><a href="https://www.cvinfo.com/news/articleView.html?idxno=30557" target="_blank">2026년 중·대형 전기트럭 보조금 최대 6천만 원</a> <span class="tag pol">보조금</span></div>
+        <div class="desc">중·대형 전기트럭 국고보조금 체계 — 상반기 수소 특장 실적 부진과 대비되는 지점. 전동화 특장 라인업 대응 시 참고 지표.</div>
+        <div class="meta">상용차매거진 · 참고자료</div></div>
+
+        <div class="news-item"><div class="title"><a href="https://www.cvinfo.com/news/articleView.html?idxno=31562" target="_blank">[여기서 잠깐!] 폭우·태풍 속 전기트럭 충전부터 침수 대처까지</a> <span class="tag pol">안전</span></div>
+        <div class="desc">계절 리스크 대응 가이드 — 여름철 차주 접점 콘텐츠 소재.</div>
+        <div class="meta">상용차매거진 · 08-04</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 커뮤니티 -->
+<div class="tab-pane" id="tab-community">
+  <div class="note"><b>보배드림 트럭·버스·중기</b> — 게시글은 개인 의견이며 표본이 작습니다(n=소수). 확산 추세로 판단하세요.</div>
+  <div class="two-col">
+    <div class="section"><h2>자사 관련</h2>
+      <div class="item-list">
+        <div class="news-item"><div class="title">최근 24시간 자사 브랜드 직접 언급 게시글 <b>없음</b> <span class="tag neu">중립</span></div>
+        <div class="desc">8/11~8/12 신규 게시글은 <a href="https://www.bobaedream.co.kr/view?code=truck&No=49856" target="_blank">"삼화고속 635버스"</a>(조회 205·댓글 3), <a href="https://www.bobaedream.co.kr/view?code=truck&No=49855" target="_blank">"인천에 대형차 정비소 질문~"</a>(조회 207·댓글 1) 등 버스·정비 문의 위주. 자사 관련 부정 이슈 발생 없음.</div>
+        <div class="meta">보배드림 · 08-11~12</div></div>
+
+        <div class="news-item"><div class="title">자사 브랜드 애착 신호 (참고) <span class="tag pos">긍정</span></div>
+        <div class="desc">댓글 작성자 닉네임에 <b>"커피에는대우프리마"</b> 등 자사 모델명 기반 활동명이 관찰됨. 미미하지만 커뮤니티 내 브랜드 정착도를 보여주는 부수적 지표.</div>
+        <div class="meta">보배드림 · 개인 의견</div></div>
+      </div>
+    </div>
+    <div class="section"><h2>경쟁사 · 시장</h2>
+      <div class="item-list">
+        <div class="news-item"><div class="title"><a href="https://www.bobaedream.co.kr/view?code=truck&No=49855" target="_blank">"인천에 대형차 정비소 질문~"</a> <span class="tag neu">정비 접근성</span></div>
+        <div class="desc">대형차 정비 인프라 문의 — 정비망 접근성이 커뮤니티의 반복 주제. 오늘 뉴스탭의 '차량 노후화(15년 초과 75만대)' 지표와 같은 방향.</div>
+        <div class="meta">보배드림 · 08-11 · 조회 207</div></div>
+
+        <div class="news-item"><div class="title"><a href="https://www.bobaedream.co.kr/view?code=truck&No=49852" target="_blank">"덤프 중고 사이트는 없나요?"</a> <span class="tag neu">중고 수요</span></div>
+        <div class="desc">덤프 중고 탐색 문의(조회 298·댓글 4). 건설기계 할부 연체율 1.43% 상승과 맞물려 <b>중고 전환 수요</b>가 커뮤니티에서도 관찰되는 대목.</div>
+        <div class="meta">보배드림 · 08-09</div></div>
+
+        <div class="news-item"><div class="title"><a href="https://www.bobaedream.co.kr/view?code=truck&No=49848" target="_blank">"악트로스 복원"</a> · <a href="https://www.bobaedream.co.kr/view?code=truck&No=49849" target="_blank">"배기구 문제"</a> <span class="tag neu">중립</span></div>
+        <div class="desc">수입 트럭 복원·정비 관련 영상 공유글. 특이 여론 없음.</div>
+        <div class="meta">보배드림 · 08-06~07</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="verdict"><b>판독:</b> 커뮤니티는 오늘 저활동 구간이며 자사 관련 부정 이슈는 없다. 다만 <b>'정비소 문의'·'중고 덤프 탐색'</b>이 신규 글의 중심이라는 점은 유튜브 자사 언급 구성(중고·정비 7/10)과 정확히 같은 신호 — <u>세 채널(뉴스·유튜브·커뮤니티)이 동시에 '보유·유지' 모드를 가리키고 있다.</u></div>
+  </div>
+</div>
+
+<footer>
+상용차 콘텐츠 클리핑 · 소스: YouTube Data API(모니터링 채널 9곳 + 자사 언급 검색 + 댓글) · 상용차매거진 · 트럭타임즈 · 보배드림 · 2026-08-12 수집<br>
+인용된 댓글·게시글은 개인 의견이며, 시사점은 분석 의견입니다. 공개 정보 기반으로 작성되었습니다.
+</footer>
+</div>
+
+<script>
+document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.tabs button').forEach(x => x.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById('tab-' + b.dataset.tab).classList.add('active');
+}));
+</script>
+</body>
+</html>

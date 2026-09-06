@@ -9,7 +9,7 @@ for path in sorted(glob.glob(os.path.join(CLIP_DIR, '*.html')), reverse=True):
     date = os.path.basename(path).replace('.html', '')
     s = open(path, encoding='utf-8').read()
     # 신호등
-    m = re.search(r'<div class="v"[^>]*>[^가-힣]*(평온|주목|이슈)</div>', s)
+    m = re.search(r'<div class="v"[^>]*>[^가-힣]*(평온|관심|주목|이슈)</div>', s)
     if not m:
         m = re.search(r'<div class="light"><span class="dot"></span><b>([^<]+)</b>', s)
     light = m.group(1) if m else '평온'
@@ -21,7 +21,7 @@ for path in sorted(glob.glob(os.path.join(CLIP_DIR, '*.html')), reverse=True):
         bullets.append(txt.strip()[:120])
     items.append({'date': date, 'light': light, 'bullets': bullets})
 
-LIGHT_COLOR = {'평온': '#2a8f5a', '주목': '#e6b800', '이슈': '#c0392b'}
+LIGHT_COLOR = {'평온': '#2a8f5a', '관심': '#e08b30', '주목': '#e6b800', '이슈': '#c0392b'}
 
 cards = []
 for i, it in enumerate(items):

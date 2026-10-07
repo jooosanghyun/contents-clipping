@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>상용차 콘텐츠 클리핑 — 2026-10-07 (수)</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", "Noto Sans KR", sans-serif; background: #f4f4f2; color: #1a1a1a; font-size: 14px; line-height: 1.55; }
+.app { max-width: 1320px; margin: 0 auto; }
+.app-header { background: linear-gradient(135deg, #1a1a1a, #2a2a2a); color: white; padding: 18px 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+.app-header h1 { font-size: 19px; font-weight: 700; }
+.app-header .subtitle { font-size: 12px; opacity: 0.7; margin-top: 2px; }
+.app-header .quick { display: flex; gap: 18px; font-size: 12px; }
+.app-header .quick .item { text-align: right; line-height: 1.2; }
+.app-header .quick .v { font-size: 17px; font-weight: 700; }
+.app-header .quick .l { font-size: 10.5px; opacity: 0.7; }
+.tabs { display: flex; background: #fff; border-bottom: 1px solid #e0e0e0; padding: 0 16px; position: sticky; top: 0; z-index: 10; overflow-x: auto; }
+.tabs button { background: none; border: none; padding: 14px 16px; font-size: 13px; cursor: pointer; color: #666; border-bottom: 3px solid transparent; font-family: inherit; white-space: nowrap; font-weight: 500; }
+.tabs button:hover { color: #c8472b; background: #fafafa; }
+.tabs button.active { color: #c8472b; border-bottom-color: #c8472b; font-weight: 600; }
+.tab-pane { display: none; padding: 20px 24px; }
+.tab-pane.active { display: block; }
+.section { background: #fff; border: 1px solid #e6e6e6; border-radius: 10px; padding: 16px 20px; margin-bottom: 14px; }
+.section > h2 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.section .desc { font-size: 12px; color: #777; margin-bottom: 12px; }
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 14px; }
+.kpi { background: #fff; border: 1px solid #e6e6e6; border-radius: 10px; padding: 14px 18px; position: relative; overflow: hidden; }
+.kpi::before { content: ""; position: absolute; top: 0; left: 0; bottom: 0; width: 4px; background: #888; }
+.kpi.pos::before { background: #2a8f2a; }
+.kpi.neg::before { background: #c0392b; }
+.kpi.accent::before { background: #c8472b; }
+.kpi.info::before { background: #2c5aa0; }
+.kpi .label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.3px; }
+.kpi .v { font-size: 22px; font-weight: 700; margin-top: 4px; line-height: 1.1; }
+.kpi .v.neg { color: #c0392b; }
+.kpi .v.accent { color: #c8472b; }
+.kpi .sub { font-size: 11.5px; color: #666; margin-top: 4px; }
+.item-list { display: flex; flex-direction: column; gap: 8px; }
+.news-item { padding: 10px 12px; border: 1px solid #eee; border-radius: 6px; background: #fafafa; }
+.news-item .title { font-weight: 600; font-size: 13px; margin-bottom: 3px; }
+.news-item .title a { color: #1a1a1a; text-decoration: none; }
+.news-item .title a:hover { color: #c8472b; text-decoration: underline; }
+.news-item .desc { font-size: 12px; color: #555; }
+.news-item .meta { font-size: 10.5px; color: #999; margin-top: 4px; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+.note { background: #f0f5ff; border-left: 3px solid #5577cc; padding: 10px 14px; margin-bottom: 12px; font-size: 12.5px; color: #334; border-radius: 4px; }
+.note b { color: #224488; }
+.note.warn { background: #fff8e6; border-color: #c8a000; color: #5a4400; }
+.note.warn b { color: #885500; }
+.note ul { margin: 4px 0 0 18px; }
+.note li { margin: 4px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+th, td { padding: 7px 10px; text-align: right; border-bottom: 1px solid #eee; }
+th { background: #fafafa; font-weight: 600; color: #555; }
+th:first-child, td:first-child { text-align: left; font-weight: 600; }
+td a { color: #1a1a1a; text-decoration: none; border-bottom: 1px dotted #c09070; }
+td a:hover { color: #c8472b; }
+.tag { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 10.5px; font-weight: 600; margin-right: 4px; vertical-align: 1px; }
+.tag.neg { background: #fde8e6; color: #a82820; }
+.tag.pos { background: #e8f5e9; color: #2a7a2a; }
+.tag.comp { background: #e8eefa; color: #2c5aa0; }
+.tag.neu { background: #eee; color: #666; }
+.tag.pol { background: #f3e8fa; color: #7040a0; }
+.tag.hot { background: #c8472b; color: #fff; }
+.status { font-size: 10.5px; font-weight: 700; padding: 1px 8px; border-radius: 9px; float: right; }
+.status.on { background: #e8f5e9; color: #2a7a2a; }
+.status.off { background: #fde8e6; color: #a82820; }
+.status.idle { background: #eee; color: #777; }
+.deep { border: 1px solid #e6ddd0; border-radius: 8px; margin-bottom: 10px; overflow: hidden; background: #fff; }
+.deep .dh { background: #faf6f0; padding: 9px 14px; font-weight: 700; font-size: 13px; display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.deep .dh a { color: #1a1a1a; text-decoration: none; border-bottom: 1px dotted #c09070; }
+.deep .dh a:hover { color: #c8472b; }
+.deep .dh .stats { font-size: 11.5px; color: #a03015; white-space: nowrap; }
+.deep .db { padding: 10px 14px; }
+.q { color: #555; font-style: italic; font-size: 12.5px; margin: 3px 0 3px 8px; }
+.q b { color: #a03015; font-style: normal; }
+.verdict { margin-top: 8px; padding: 8px 12px; background: #fbf8f0; border-radius: 5px; font-size: 12.5px; }
+.verdict b { color: #7a5000; }
+.yt { font-size: 10px; color: #c8472b; font-weight: 700; margin-left: 3px; }
+footer { padding: 16px 28px; background: #fafafa; border-top: 1px solid #e0e0e0; font-size: 11px; color: #888; text-align: center; }
+</style>
+</head>
+<body>
+<div class="app">
+
+<header class="app-header">
+  <div>
+    <h1>상용차 콘텐츠 클리핑</h1>
+    <div class="subtitle">유튜브 여론 · 경쟁사 채널 · 커뮤니티 · 뉴스 · 정책 &nbsp;|&nbsp; 2026년 10월 7일 (수) &nbsp;·&nbsp; 수집 창 2026-10-06 09:00 ~ 10-07 09:00 KST (24시간) &nbsp;·&nbsp; 연휴 구간(10-02~10-06) 미발행분 보완 포함</div>
+  </div>
+  <div class="quick">
+    <div class="item"><div class="v">25건</div><div class="l">자사 언급 영상 (24h)</div></div>
+    <div class="item"><div class="v">11,731회</div><div class="l">최대 확산 (카링TV 하이쎈 론칭)</div></div>
+    <div class="item"><div class="v">3건</div><div class="l">신규 기사 (수집 창 내)</div></div>
+    <div class="item"><div class="v">1건</div><div class="l">자사 공식 채널 업로드 (24h)</div></div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button data-tab="summary" class="active">📊 요약</button>
+  <button data-tab="youtube">🎬 유튜브</button>
+  <button data-tab="news">📰 뉴스·정책</button>
+  <button data-tab="community">💬 커뮤니티</button>
+</nav>
+
+<!-- 요약 -->
+<div class="tab-pane active" id="tab-summary">
+  <div class="kpi-row">
+    <div class="kpi accent"><div class="label">최대 확산 <span class="tag hot">확산</span></div><div class="v accent">11,731회</div><div class="sub">카링TV 하이쎈 론칭 리뷰(27분) 업로드 약 16시간 만에 좋아요 154·댓글 33</div></div>
+    <div class="kpi info"><div class="label">자사 언급 영상 <span class="tag neu">중립</span></div><div class="v">25건</div><div class="sub">24시간 내 자사 브랜드 언급 영상 (자사 발신 1건 · 중고매물·출고 15건 · 정비·특장·튜닝 8건 · 리뷰 1건)</div></div>
+    <div class="kpi pos"><div class="label">자사 채널 재가동 <span class="tag pos">긍정</span></div><div class="v">1건</div><div class="sub">10-06 09:46 'Tell your Daewoo Moment' 업로드(259회). 10-02 하이쎈 쇼츠 3건에 이어 4-22 이후 공백 종료</div></div>
+    <div class="kpi neg"><div class="label">부정 VOC (연휴 구간 보완) <span class="tag neg">부정</span></div><div class="v neg">댓글 41</div><div class="sub">뉴비트럭커 '맥쎈 계기판 먹통 서비스불가?' 5,986회·좋아요 51 (10-02 업로드, 미발행분)</div></div>
+  </div>
+
+  <div class="section">
+    <h2>핵심 요약</h2>
+    <div class="desc">수집 창 2026-10-06 09:00 ~ 10-07 09:00 KST (24시간) 기준 · 연휴 구간(10-02 09:00 ~ 10-06 09:00) 미발행분은 "보완"으로 병기 · 조회수·좋아요·댓글 수는 모두 2026-10-07 09:15 KST 실측값</div>
+    <div class="note">
+      <div style="margin-bottom:8px; font-size:13px"><span class="tag hot">오늘의 신호등</span>
+        <div class="v" style="color:#c8a000; font-size:15px; font-weight:700; display:inline-block; margin-top:6px">🟡 주의</div>
+        &nbsp;— 하이쎈 외부 리뷰 확산이 트럭 전문 채널로 이어졌고 자사 채널도 재가동됐지만, 연휴 구간에 맥쎈 계기판 유상 업데이트 불만이 차주 댓글로 모였다.</div>
+      <ul>
+        <li><b>카링TV가 10/06 17:25 '중형 트럭의 부재, 타타대우 하이쎈 론칭, 도심물류 적합 메가트럭 빈자리 채워'(27분)를 올려 약 16시간 만에 11,731회·좋아요 154·댓글 33을 기록했다.</b> 댓글은 "중형 시장 공백을 채운다"는 공감이 다수이나 "결국 팔리는 건 현대", "계기판은 중국 FCW 트럭 것"처럼 차별성·부품 출처를 묻는 지적도 함께 달렸다.</li>
+        <li><b>자사 공식 채널이 10/06 09:46 'Tell your Daewoo Moment_피메일트럭커주미 님'(1분 27초)을 올렸다(259회·좋아요 6).</b> 10/02 하이쎈 쇼츠 3건에 이어 4/22 이후 이어진 업로드 공백이 끝났지만, 도달은 외부 리뷰 채널 대비 미미하다.</li>
+        <li><b>같은 24시간 안에 자사 브랜드 언급 영상 25건이 올라왔고, 그중 24건은 중고차 매매상·특장·정비·튜닝 채널 발신이다.</b> 60초 이하 쇼츠가 18건으로 다수이며, 경쟁사 공식 채널 신규 업로드는 0건이다.</li>
+        <li><b>연휴 구간(10/02~10/06) 미발행분 보완: mediaAUTO 하이쎈 시승기가 95,697회·좋아요 777·댓글 131로 하이쎈 관련 최대 확산을 기록했고, 뉴비트럭커 '맥쎈 계기판 먹통 서비스불가?돈 내고 고쳐.'(5,986회·댓글 41)에는 유상 업데이트·보증 정책 불만이 집중됐다.</b></li>
+        <li><b>수집 창 내 신규 기사 3건: 김제 특장차 클러스터 2건(군산 타타대우모빌리티 섀시 공급 언급), 에스에이피 리오네 버스 69대 리콜.</b> 참고로 10-02 발행본에 실린 '화물차 도심 규제 도시별 상이' 기사가 10-06 재게시됐다. 보배드림 트럭게시판은 24시간 내 신규 글 0건이다.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>오늘의 시사점 <span style="font-weight:400; font-size:11px; color:#999">(분석 의견)</span></h2>
+    <div class="note warn">
+      <ul>
+        <li><b>하이쎈 리뷰 축이 승용 대중 채널(mediaAUTO 9.6만)에서 트럭 전문 채널(카링TV 1.2만)로 옮겨 왔다.</b> 노출 단계는 충족됐고, 댓글은 '더쎈 5톤과 뭐가 다른가', '5톤 스카이·특장 적재 가능한가', '계기판·엔진 출처'처럼 구체 질문으로 바뀌고 있다. 공개 Q&amp;A형 정보 콘텐츠 수요가 생긴 국면이다.</li>
+        <li><b>"타타대우가 아직 있구나" 류 반응이 mediaAUTO 시승기(10/02)와 홍시car 시승기(10/01, 10-02 발행본 수록) 두 채널 댓글에 반복된다.</b> 대중 인지도 환기는 하이쎈 론칭의 부수 효과로 작동 중이다.</li>
+        <li><b>맥쎈 계기판 유상 업데이트 논란(뉴비트럭커)은 개별 고장 불만을 넘어 보증·AS 정책 불신으로 번진 사례다.</b> 채널 규모는 작지만 댓글 41건이 차주 경험담 위주라 커뮤니티 확산 소지가 있어 모니터링이 필요하다.</li>
+        <li><b>수입 상용차 4분기 판촉이 공격적이다.</b> 스타트럭코리아 120개월 할부·10년 오일쿠폰(10/02), MAN 서비스데이 전국 6곳(10/13~22). 대형 트랙터·덤프 수요층의 비교 기준이 금융·서비스 조건으로 이동한다.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 유튜브 -->
+<div class="tab-pane" id="tab-youtube">
+  <div class="two-col">
+    <div class="section">
+      <h2>경쟁사 · 공식 채널</h2>
+      <div class="desc">모니터링 6개 채널 상태 · 수집 창(2026-10-06 09:00 ~ 10-07 09:00 KST) 이내 신규 업로드 <b>1건</b> (자사)</div>
+      <table>
+        <tr><th>채널</th><th>상태</th><th>마지막 업로드 (KST)</th></tr>
+        <tr><td><a href="https://www.youtube.com/channel/UCldYFZ377kIjLybEsK9YR4g" target="_blank">타타대우모빌리티<span class="yt">▶</span></a> <span style="font-weight:400;color:#c8472b">(자사)</span></td><td><span class="status on">재가동</span></td><td>2026-10-06 09:46</td></tr>
+        <tr><td><a href="https://www.youtube.com/channel/UCgHPdMZMhYWUf2MUGNrH48g" target="_blank">볼보트럭코리아<span class="yt">▶</span></a></td><td><span class="status idle">저활동</span></td><td>2026-09-08 "도심 운송을 더욱 스마트하게, 볼보 FM Electric"</td></tr>
+        <tr><td>스카니아코리아</td><td><span class="status off">공백</span></td><td>2026-10-01 14:50</td></tr>
+        <tr><td>MAN Truck &amp; Bus Korea</td><td><span class="status off">공백</span></td><td><a href="https://www.youtube.com/watch?v=8_Z35Rsyb9A" target="_blank">2026-10-02 19:11 "🚛 MAN Truck &amp; Bus Korea 25 Years"<span class="yt">▶</span></a></td></tr>
+        <tr><td>STAR TRUCK KOREA (벤츠)</td><td><span class="status off">공백</span></td><td>2026-09-30 17:00 뉴 아록스 4153K 시승행사 인터뷰</td></tr>
+        <tr><td>현대 트럭앤버스</td><td><span class="status off">휴면</span></td><td>2022-11-08 (휴면)</td></tr>
+      </table>
+      <div style="font-size:12.5px; font-weight:700; margin:14px 0 8px">수집 창 이내 신규 업로드 1건</div>
+      <div class="item-list">
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/watch?v=vStT0Vfkzes" target="_blank">Tell your Daewoo Moment_피메일트럭커주미 님<span class="yt">▶</span></a> <span class="tag pos">긍정</span></div>
+        <div class="desc">자사 공식 채널 업로드. 10-02 하이쎈 쇼츠 3건(연휴 구간)에 이어 수집 창 안에서 올라온 일반 영상이다.</div>
+        <div class="meta">타타대우모빌리티 (자사) · 2026-10-06 09:46 · 1:27 · <b>259회</b> · 좋아요 6 · 댓글 0</div></div>
+      </div>
+      <div class="meta" style="font-size:11.5px; color:#888; margin-top:8px">경쟁사 5개 채널은 수집 창 이내 신규 업로드가 없다.</div>
+    </div>
+
+    <div class="section">
+      <h2>인플루언서 · 확산 랭킹</h2>
+      <div class="desc">수집 창 이내 업로드 중 실측 조회수 상위 5건 · 조회수/좋아요/댓글은 2026-10-07 09:15 KST 실측값</div>
+      <table>
+        <tr><th>콘텐츠</th><th>채널</th><th>길이</th><th>조회수</th><th>👍/💬</th></tr>
+        <tr><td><span class="tag hot">1위</span><a href="https://www.youtube.com/watch?v=zy-dkf0pJsA" target="_blank">중형 트럭의 부재, 타타대우 하이쎈 론칭, 도심물류 적합 메가트럭 빈자리 채워<span class="yt">▶</span></a></td><td>카링TV carringTV</td><td>27:18</td><td><b>11,731</b></td><td>154 / 33</td></tr>
+        <tr><td><a href="https://www.youtube.com/shorts/aCrrJp65Op4" target="_blank">정비사의 반전.. #타타대우#요소수<span class="yt">▶</span></a> <span class="tag neu">중립</span></td><td>DS건설기계 : 건설기계의 모든 것</td><td>0:40</td><td>1,761</td><td>8 / 1</td></tr>
+        <tr><td><a href="https://www.youtube.com/watch?v=cx5FIWboBe8" target="_blank">[프리마] 10m1 현대 신품 저상 적재함 교환 하기<span class="yt">▶</span></a> <span class="tag neu">중립</span></td><td>플러스적재함(구:상록수)</td><td>10:40</td><td>644</td><td>6 / 0</td></tr>
+        <tr><td><a href="https://www.youtube.com/watch?v=uo3aNYwozvU" target="_blank">지게차 걸릴 일 전혀 없다! 무려 1.7m 번쩍 들리는 23년식 15만km 타타대우 맥쎈 25톤 후축 상승 윙바디<span class="yt">▶</span></a> <span class="tag neu">중립</span></td><td>트럭앤트럭</td><td>4:57</td><td>352</td><td>13 / 1</td></tr>
+        <tr><td><a href="https://www.youtube.com/shorts/IT8ff4wv66E" target="_blank">타타대우 노부스 8.5톤 윙바디 2018년식 78만km | 280마력 수동 | 한성특장 | 아이트럭<span class="yt">▶</span></a> <span class="tag neu">중립</span></td><td>아이트럭</td><td>0:11</td><td>290</td><td>1 / 0</td></tr>
+      </table>
+      <div class="meta" style="font-size:11.5px; color:#888; margin-top:8px">※ 권마키는 수집 창 이내 업로드 없음(최종 09-03). 홍시car는 창 내 3건 업로드했으나 전부 승용(GV80·GV90)으로 제외.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>이슈 심층</h2>
+    <div class="desc">수집 창 이내 1건 · 연휴 구간 보완 2건 · 보완+수집 창 내 혼합 1건(이슈 #4) · 댓글은 원문 그대로, 좋아요 수 병기</div>
+
+    <div class="deep">
+      <div class="dh"><span><span class="tag hot">이슈 #1</span> 카링TV 하이쎈 론칭 리뷰 (수집 창 내) · <a href="https://www.youtube.com/watch?v=zy-dkf0pJsA" target="_blank">「중형 트럭의 부재, 타타대우 하이쎈 론칭, 도심물류 적합 메가트럭 빈자리 채워」<span class="yt">▶</span></a></span><span class="stats">조회 11,731 · 👍154 · 💬33 · 27:18</span></div>
+      <div class="db">
+        <div style="font-size:12px; font-weight:700; margin:0 0 4px; color:#555">인용 댓글 <span style="font-weight:400; color:#999">(개인 의견 · 원문 그대로 · 좋아요 수 병기)</span></div>
+        <div class="q"><b>👍11</b> "중형 트럭 시장에서 늘 아쉬웠던 부분과 새로운 대안인 하이쎈의 특징을 짚어주셔서 시청하는 내내 깊이 공감하며 경청했습니다. 도심 운행 환경에 어떤 변화를 가져올지 세심한 시각으로 다뤄주셔서 많은 참고가 되네요."</div>
+        <div class="q"><b>👍7</b> "5톤 스카이 특장으로 올리는게 될까 궁금하네요. 사실 파비스 넘 덩치가 큼. 구쎈도 마찬가지고. 제원만 동일하게 나온다면 괜찮을거 같네요. 근데 판스프링 갯수보니 16.5톤 하중 버티기엔 택두 없군요. 보강을 해야할듯"</div>
+        <div class="q"><b>👍6</b> "대우 엠블럼이 더 세련되내 같네요<br>타타대우는 실내 디자인을 잘 뽑는거 같네요<br>카링티비로 더쎈 실내 봤을때<br>흰색 디자인 보고 깜짝 놀랐습니다"</div>
+        <div class="q"><b>👍5</b> "계기판을 중국fcw트럭꺼 그대로 가져다 사용하네요"</div>
+        <div class="q"><b>👍5</b> "없고 있고간에 결국 팔리는건 현대 트럭아님?? 정작 보기도 힘든데"</div>
+        <div class="q"><b>👍4</b> "언뜻 보면 더쎈 5톤사양이 이름을 바꾼 것 같다고 볼 수도 있겠네요."</div>
+        <div class="q"><b>👍3</b> "맥쎈에 미러캠 개발중이라는대 맞나요?"</div>
+        <div class="verdict"><b>판독 <span style="font-weight:400; font-size:11px; color:#999">(분석 의견)</span>:</b> 트럭 전문 채널의 롱폼 리뷰로 '중형 공백의 대안' 프레임이 안착했다. 긍정 댓글은 실내 디자인·도심 적합성에 모이고, 회의론은 ① 더쎈 5톤과의 차별성 ② 계기판 등 부품 출처 ③ 현대 대비 판매 현실 세 갈래다. 특장 적합성(스카이 장착·판스프링 보강)과 미러캠 질문은 제품 Q&amp;A 수요 신호다.</div>
+      </div>
+    </div>
+
+    <div class="deep">
+      <div class="dh"><span><span class="tag pos">이슈 #2</span> mediaAUTO 하이쎈 시승기 (연휴 구간 보완 · 10-02 09:31 업로드) · <a href="https://www.youtube.com/watch?v=pGAjw7Q4EHI" target="_blank">「타타대우 하이쎈 시승기... 교묘한 틈새 // 중형트럭, 5톤, 5리터, 디젤, 8단자동」<span class="yt">▶</span></a></span><span class="stats">조회 95,697 · 👍777 · 💬131 · 19:59</span></div>
+      <div class="db">
+        <div style="font-size:12px; font-weight:700; margin:0 0 4px; color:#555">인용 댓글 <span style="font-weight:400; color:#999">(개인 의견 · 원문 그대로 · 좋아요 수 병기)</span></div>
+        <div class="q"><b>👍90</b> "설명할 시간이 없어 어서 타"</div>
+        <div class="q"><b>👍15</b> "나 사지도 않을건데 왜 끝까지 보고 있는거냐... ㅋㅋㅋㅋㅋ"</div>
+        <div class="q"><b>👍5</b> "진택이형 타타대우는 그냥 믿고 보는거임... 살면서 절대 살 차종은 아니지만 재밌음ㅋㅋㅋ"</div>
+        <div class="q"><b>👍2</b> "그래서 좋아요..<br>현장에서 일하는 사람들 더 힘나게<br>더 즐겁게 일할수있게 지루하지 안게<br>쉽게 설명하는거 같아 보기 좋아요<br>이런차를 살 이유는 없는 사람이지만<br>이런차도 있구나 대우차가 아직 있구나<br>좋은 정보 언제나 잘 챙겨보고 있습니다"</div>
+        <div class="verdict"><b>판독 <span style="font-weight:400; font-size:11px; color:#999">(분석 의견)</span>:</b> 승용 대중 채널에서 10만에 근접한 도달이다. 댓글은 진행자 텐션·엔터테인먼트 반응이 압도적이며 구매층 반응은 거의 없다. '대우차가 아직 있구나' 반응은 홍시car 시승기(10/01, 10-02 발행본 수록) 댓글에도 있었던 인지도 환기 패턴이다. 10-02 09:31 업로드로 10-02 발행본 수집 창 종료(10-02 08:05) 직후 업로드돼 당일 발행본에 실리지 않았고 10-06 발행본이 없어 이번에 보완한다.</div>
+      </div>
+    </div>
+
+    <div class="deep">
+      <div class="dh"><span><span class="tag neg">이슈 #3</span> 뉴비트럭커 (연휴 구간 보완 · 10-02 18:00 업로드) · <a href="https://www.youtube.com/watch?v=bBIdLsOYTis" target="_blank">「맥쎈 계기판 먹통 서비스불가?돈 내고 고쳐.」<span class="yt">▶</span></a></span><span class="stats">조회 5,986 · 👍51 · 💬41 · 14:59</span></div>
+      <div class="db">
+        <div style="font-size:12px; font-weight:700; margin:0 0 4px; color:#555">인용 댓글 <span style="font-weight:400; color:#999">(개인 의견 · 원문 그대로 · 좋아요 수 병기)</span></div>
+        <div class="q"><b>👍2</b> "아니 씨 업데이트로 수리되는거면<br>처음부터 오류구만 그걸 돈받는다고?<br>미친건가?"</div>
+        <div class="q"><b>👍0</b> "1년탔는데 저도 계기판 꺼짐증상,메인 캡센서 나가서 배선 갈이 진짜 타타대우 두번은 안타요 할부끝나면 그냥 끝 바로 팔고 타타 안탈듯 해요 욕이 안나올수가 없어요 진짜 타타대우 정신 차리세요 대우차 타는 기사님들이 다들 타타 추천 안해요;;"</div>
+        <div class="q"><b>👍0</b> "계기판꺼짐 1년동안쓰고 고장나신거 대단하십니다.보통출고후2~3개월정도에 발생하는고장인데"</div>
+        <div class="q"><b>👍0</b> "와 저도 22년식 프리마스틱차인데 1년도 안되고 62000km인가에서 고단저단스위치고장으로 짐실려있는데 저단으로 바뀌지않아 애먹은적이 있습니다 센타에 들어가니 보증 끝났다하여 한참열불내고온기억이 !<br>그스위치가 6만원정도 했어는데 돈이문제가 아니고 그게 차량 소모품이냐고 열불낸기억이 암튼 타타대우 경영진들 똑바로 하시길"</div>
+        <div class="q"><b>👍0</b> "혹시 왼쪽으로 핸들 쏠림은 없으신가요? 타타대우 갔더니 윙바디는 다 그런다 하더라구요"</div>
+        <div class="verdict"><b>판독 <span style="font-weight:400; font-size:11px; color:#999">(분석 의견)</span>:</b> 쟁점은 '소프트웨어 업데이트로 해결되는 결함을 유상 처리했다'는 인식이다. 댓글이 계기판 꺼짐·캡센서 배선·변속 스위치 보증·핸들 쏠림 등 개별 경험담으로 이어지며 보증·AS 정책 불신으로 확장됐다. 채널 규모는 작지만 차주 커뮤니티 성격의 댓글이라 2차 확산 소지가 있다. (댓글 좋아요 수가 낮은 점은 원문 그대로 표기했다.)</div>
+      </div>
+    </div>
+
+    <div class="deep">
+      <div class="dh"><span><span class="tag neu">이슈 #4</span> DS건설기계 '#타타대우 #요소수' 연속 콘텐츠</span><span class="stats">10,760회 (10-03) → 2,971회 (10-05) → 1,761회 (10-06)</span></div>
+      <div class="db">
+        <div style="font-size:12.5px; color:#444">
+        · <b>10-03</b> <a href="https://www.youtube.com/watch?v=S8YzooEVmAA" target="_blank">「요소수 농도는 정상인데...에러코드가 뜬다면? #타타대우#트럭#요소수」<span class="yt">▶</span></a> — 10,760회 · 좋아요 51 · 댓글 1 · 12:05 <span style="color:#999">(연휴 구간 보완 · 10-03)</span><br>
+        · <b>10-05 18:00</b> <a href="https://www.youtube.com/shorts/BhEws_AXImI" target="_blank">「레벨센더 교체 전 확인하세요 #타타대우 #요소수」<span class="yt">▶</span></a> — 2,971회 · 쇼츠 <span style="color:#999">(연휴 구간 보완 · 10-05)</span><br>
+        · <b>10-06 18:00</b> <a href="https://www.youtube.com/shorts/aCrrJp65Op4" target="_blank">「정비사의 반전.. #타타대우#요소수」<span class="yt">▶</span></a> — 1,761회 · 좋아요 8 · 댓글 1 · 0:40 <span style="color:#999">(수집 창 내)</span>
+        </div>
+        <div style="font-size:12px; font-weight:700; margin:10px 0 4px; color:#555">인용 댓글 <span style="font-weight:400; color:#999">(개인 의견 · 원문 그대로 · 좋아요 수 병기)</span></div>
+        <div class="q"><b>👍0 (aCrrJp65Op4)</b> "초보티~"</div>
+        <div class="q"><b>👍0 (S8YzooEVmAA)</b> "좋았다아~"</div>
+        <div class="verdict"><b>판독 <span style="font-weight:400; font-size:11px; color:#999">(분석 의견)</span>:</b> 정비 채널이 자사 요소수(SCR) 계통 진단을 시리즈로 다루며 롱폼 1만 회 이상 도달했다. 댓글 반응은 거의 없어 여론 이슈가 아니라 정비 정보 수요다. 요소수 관련 에러코드·레벨센더는 차주 자가진단 관심사로 반복 등장한다.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="section">
+      <h2>자사 언급 레이더</h2>
+      <div class="desc">수집 창 이내 자사 브랜드 언급 영상 <b>25건</b> 전량 · 자사 발신 1 / 중고매물·출고 15 / 정비·특장·튜닝 8 / 리뷰 1 · 조회수는 2026-10-07 09:15 KST 실측값</div>
+      <div class="item-list">
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/watch?v=zy-dkf0pJsA" target="_blank">중형 트럭의 부재, 타타대우 하이쎈 론칭, 도심물류 적합 메가트럭 빈자리 채워<span class="yt">▶</span></a></div>
+        <div class="meta">카링TV carringTV · 리뷰 · 10-06 17:25 · 27:18 · <b>11,731회</b> <span class="tag hot">확산</span></div></div>
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/aCrrJp65Op4" target="_blank">정비사의 반전.. #타타대우#요소수<span class="yt">▶</span></a></div>
+        <div class="meta">DS건설기계 : 건설기계의 모든 것 · 정비 · 10-06 18:00 · 0:40 · 1,761회 <span class="tag neu">중립</span></div></div>
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/watch?v=cx5FIWboBe8" target="_blank">[프리마] 10m1 현대 신품 저상 적재함 교환 하기<span class="yt">▶</span></a></div>
+        <div class="meta">플러스적재함(구:상록수) · 특장 · 10-06 17:00 · 10:40 · 644회 <span class="tag neu">중립</span></div></div>
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/watch?v=uo3aNYwozvU" target="_blank">지게차 걸릴 일 전혀 없다! 무려 1.7m 번쩍 들리는 23년식 15만km 타타대우 맥쎈 25톤 후축 상승 윙바디<span class="yt">▶</span></a></div>
+        <div class="meta">트럭앤트럭 · 중고 매물 · 10-06 15:30 · 4:57 · 352회 <span class="tag neu">중립/잔가</span></div></div>
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/IT8ff4wv66E" target="_blank">타타대우 노부스 8.5톤 윙바디 2018년식 78만km | 280마력 수동 | 한성특장 | 아이트럭<span class="yt">▶</span></a></div>
+        <div class="meta">아이트럭 · 중고 매물 · 10-06 16:38 · 0:11 · 290회 <span class="tag neu">중립/잔가</span></div></div>
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/watch?v=vStT0Vfkzes" target="_blank">Tell your Daewoo Moment_피메일트럭커주미 님<span class="yt">▶</span></a></div>
+        <div class="meta">타타대우모빌리티 (자사) · 자사 발신 · 10-06 09:46 · 1:27 · 259회 <span class="tag pos">긍정</span></div></div>
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/lH24EUjORQg" target="_blank">타타대우 프리마 8.5톤 냉동윙 2021년식 84만km 280마력 오토 | 아이트럭<span class="yt">▶</span></a></div>
+        <div class="meta">아이트럭 · 중고 매물 · 10-06 14:56 · 0:11 · 249회 <span class="tag neu">중립/잔가</span></div></div>
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/2YO2K4dheoo" target="_blank">타타대우 프리마 25톤 1축 2축 라이닝작업 26 10 5(작업내용과 금액은 댁글에)#대형차수리 #차량정비 #쓰리축수리 #가변축수리<span class="yt">▶</span></a></div>
+        <div class="meta">견정석(원우공업사  공장장)가변축 쓰리축 · 정비 · 10-06 12:07 · 0:37 · 206회 <span class="tag neu">중립</span></div></div>
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/JSsyBmUAEsc" target="_blank">타타대우 프리마 25톤 카고 2018년식 | 480마력 오토 | 주행 79만km 실매물 소개 [아이트럭]<span class="yt">▶</span></a></div>
+        <div class="meta">아이트럭 · 중고 매물 · 10-06 16:51 · 0:11 · 202회 <span class="tag neu">중립/잔가</span></div></div>
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/u6VsNvlRu9A" target="_blank">타타대우 대우 노브스 노부스 5톤암롤<span class="yt">▶</span></a></div>
+        <div class="meta">특트럭k 중고화물.특장 · 중고 매물 · 10-06 11:04 · 0:44 · 184회 <span class="tag neu">중립/잔가</span></div></div>
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/1y3yeLHeNzE" target="_blank">타타대우 노브스 5톤 암롤<span class="yt">▶</span></a></div>
+        <div class="meta">특트럭k 중고화물.특장 · 중고 매물 · 10-06 10:53 · 0:59 · 182회 <span class="tag neu">중립/잔가</span></div></div>
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/watch?v=2MXTYrfaDww" target="_blank">[프리마] 노후차는 에어드라이 앗세이, 셉쿨러 무조건 교환 해야 하나? (에어라인 예방정비)<span class="yt">▶</span></a></div>
+        <div class="meta">화모(화물차의 모든것) · 정비 · 10-06 19:01 · 4:52 · 152회 <span class="tag neu">중립</span></div></div>
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/-SeG3RR5NlM" target="_blank">[구쎈 카고 판매] 구쎈 카고 9톤 앞축 2022년식/34만km/8m40/320마력/zf오토 #shorts #중고화물차 …<span class="yt">▶</span></a></div>
+        <div class="meta">여부장트럭 중고화물차매매 전문추천업체 · 중고 매물 · 10-06 18:51 · 0:52 · 135회 <span class="tag neu">중립/잔가</span></div></div>
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/0tT4rPqb-AQ" target="_blank">타타대우 프리마 25톤 엔진오일 누유26 10 6(작업내용과 금액은 댁글에)#대형차수리 #차량정비 #쓰리축수리 #가변축수리<span class="yt">▶</span></a></div>
+        <div class="meta">견정석(원우공업사  공장장)가변축 쓰리축 · 정비 · 10-06 17:11 · 0:16 · 125회 <span class="tag neu">중립</span></div></div>
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/qmzd456gJT0" target="_blank">덤프 타타대우 덱쎈 186마력 오토 1인신조 매매<span class="yt">▶</span></a></div>
+        <div class="meta">미래트럭 · 중고 매물 · 10-06 19:16 · 0:29 · 74회 <span class="tag neu">중립/잔가</span></div></div>
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/tmQbQZ8z5Fk" target="_blank">맥쎈신차패키지맛집 신차출고 필수7종 신차패키지 시공은 역시 트럭기동대 입니다. 꼼꼼하게 정성을 다해 시공해 드립니다.<span class="yt">▶</span></a></div>
+        <div class="meta">베바스토웰텍 인천본점 · 튜닝/용품 · 10-07 03:27 · 0:58 · 62회 <span class="tag neu">중립/광고</span></div></div>
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/QfUObas2mVU" target="_blank">▶ 노부스 7.5톤 윙바디 | 냉장 완바디<span class="yt">▶</span></a></div>
+        <div class="meta">영차트럭 · 중고 매물 · 10-06 09:49 · 0:35 · 38회 <span class="tag neu">중립/잔가</span></div></div>
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/3dNZKKjduqk" target="_blank">14년식 노부스 4.5톤 후축 윙바디 길이9m70 260마력의 중고화물차 판매합니다.  #노부스윙바디#윙바디중고#중고화물차<span class="yt">▶</span></a></div>
+        <div class="meta">중고화물차 중고트럭 중고대형트럭 오복트럭 · 중고 매물 · 10-06 16:00 · 0:28 · 29회 <span class="tag neu">중립/잔가</span></div></div>
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/TxRXIuTx3Rc" target="_blank">구쎈 6.5톤 22년23각자 320마력 오토 9m40후축 써브냉동완바디 판매합니다. #화물차매매 #중고화물차매매 …<span class="yt">▶</span></a></div>
+        <div class="meta">경기대형트럭(주) · 중고 매물 · 10-06 15:00 · 0:21 · 13회 <span class="tag neu">중립/잔가</span></div></div>
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/JzLUjBaxRrA" target="_blank">[신바람 중고농기계밴드 엄부장 회원님 매물소개]프리마 6.5톤 후축 냉동탑 판매합니다. …<span class="yt">▶</span></a></div>
+        <div class="meta">신바람 농사메카 농기계TV · 중고 매물 · 10-07 08:00 · 0:11 · 12회 <span class="tag neu">중립/잔가</span></div></div>
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/X0YykAs_y2A" target="_blank">253 [부산] 25톤 대형 대우프리마! 철스크랩 운반차량 튜닝검사 완료!<span class="yt">▶</span></a></div>
+        <div class="meta">구조변경 박대장 · 튜닝/구조변경 · 10-06 12:45 · 0:41 · 6회 <span class="tag neu">중립</span></div></div>
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/watch?v=p7GJThtkW-s" target="_blank">프리마 앞쪽 에어단지교환<span class="yt">▶</span></a></div>
+        <div class="meta">제천갈비의 일상 · 정비 · 10-06 23:57 · 26:09 · 5회 <span class="tag neu">중립</span></div></div>
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/watch?v=hsL4JktkghA" target="_blank">[복트럭] 10빠 윙바디가 더쎈 4톤 광폭윙에 오토밋션이네요~~<span class="yt">▶</span></a></div>
+        <div class="meta">복트럭 · 중고 매물 · 10-07 08:00 · 2:31 · 4회 <span class="tag neu">중립/잔가</span></div></div>
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/ocA5zXIvzxA" target="_blank">덤프 타타대우 덱쎈 186마력 오토 1인신조 매매<span class="yt">▶</span></a></div>
+        <div class="meta">미래트럭 · 중고 매물 · 10-06 19:15 · 0:59 · 3회 <span class="tag neu">중립/잔가</span></div></div>
+        <div class="news-item"><div class="title"><a href="https://www.youtube.com/shorts/VEVj5lspxlI" target="_blank">▶ 노부스 윙바디 7.5톤 냉장 완바디<span class="yt">▶</span></a></div>
+        <div class="meta">낭만트럭 · 중고 매물 · 10-06 10:18 · 0:35 · 0회 <span class="tag neu">중립/잔가</span></div></div>
+      </div>
+      <div class="verdict" style="margin-top:10px"><b>판독 <span style="font-weight:400; font-size:11px; color:#999">(분석 의견)</span>:</b> 25건 중 24건이 중고차 매매상·특장·정비·튜닝 채널 발신이고 자사 발신은 1건이다. 조회수는 카링TV 리뷰 1건(11,731회)에 집중돼 있다.</div>
+    </div>
+
+    <div class="section">
+      <h2>쇼츠 동향</h2>
+      <div class="desc">수집 창 이내 60초 이하 쇼츠 <b>18건</b> (전부 자사 언급 · 경쟁사 공식 0건) · 조회수 상위 5건</div>
+      <table>
+        <tr><th>쇼츠</th><th>채널</th><th>길이</th><th>조회수</th></tr>
+        <tr><td><span class="tag hot">🔥</span><a href="https://www.youtube.com/shorts/aCrrJp65Op4" target="_blank">정비사의 반전.. #타타대우#요소수<span class="yt">▶</span></a></td><td>DS건설기계</td><td>0:40</td><td><b>1,761</b></td></tr>
+        <tr><td><a href="https://www.youtube.com/shorts/IT8ff4wv66E" target="_blank">타타대우 노부스 8.5톤 윙바디 2018년식 78만km | 280마력 수동 | 한성특장 | 아이트럭<span class="yt">▶</span></a></td><td>아이트럭</td><td>0:11</td><td>290</td></tr>
+        <tr><td><a href="https://www.youtube.com/shorts/lH24EUjORQg" target="_blank">타타대우 프리마 8.5톤 냉동윙 2021년식 84만km 280마력 오토 | 아이트럭<span class="yt">▶</span></a></td><td>아이트럭</td><td>0:11</td><td>249</td></tr>
+        <tr><td><a href="https://www.youtube.com/shorts/2YO2K4dheoo" target="_blank">타타대우 프리마 25톤 1축 2축 라이닝작업 26 10 5(작업내용과 금액은 댁글에)…<span class="yt">▶</span></a></td><td>견정석(원우공업사  공장장)가변축 쓰리축</td><td>0:37</td><td>206</td></tr>
+        <tr><td><a href="https://www.youtube.com/shorts/JSsyBmUAEsc" target="_blank">타타대우 프리마 25톤 카고 2018년식 | 480마력 오토 | 주행 79만km 실매물 소개 [아이트럭]<span class="yt">▶</span></a></td><td>아이트럭</td><td>0:11</td><td>202</td></tr>
+      </table>
+      <div class="meta" style="font-size:11.5px; color:#888; margin-top:8px">쇼츠 18건 = 중고매물 13건(아이트럭 3·특트럭k 2·미래트럭 2·여부장트럭 1·영차트럭 1·낭만트럭 1·오복트럭 1·경기대형트럭 1·신바람 1) + 정비·특장·튜닝 5건(견정석 2·구조변경 박대장 1·베바스토웰텍 1·DS건설기계 1).</div>
+      <div class="verdict" style="margin-top:10px"><b>판독 <span style="font-weight:400; font-size:11px; color:#999">(분석 의견)</span>:</b> 수집 창 이내 쇼츠는 전부 외부 채널의 매물·정비 목적 콘텐츠이며, 최다 조회는 DS건설기계 요소수 정비 쇼츠(1,761회)다. 경쟁사 공식 채널 쇼츠는 0건이다.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>연휴 구간 보완 <span style="font-weight:400; font-size:11px; color:#999">(10-02 09:00 ~ 10-06 09:00 · 10-06 미발행분)</span></h2>
+    <div class="note">※ 아래 항목은 <b>연휴 구간 보완</b>이며, 위의 수집 창 내 건수(자사 언급 25건 · 쇼츠 18건 · 신규 업로드 1건)에는 <b>포함하지 않았다</b>. 조회수·좋아요·댓글 수는 2026-10-07 09:15 KST 실측값.</div>
+    <table>
+      <tr><th>콘텐츠</th><th>채널</th><th>업로드 (KST)</th><th>조회 / 👍 / 💬</th><th>형식</th></tr>
+      <tr><td><a href="https://www.youtube.com/watch?v=pGAjw7Q4EHI" target="_blank">타타대우 하이쎈 시승기... 교묘한 틈새 // 중형트럭, 5톤, 5리터, 디젤, 8단자동<span class="yt">▶</span></a> <span style="font-weight:400;color:#999">(연휴 구간 보완 · 10-02)</span></td><td>mediaAUTO 미디어오토</td><td>10-02 09:31</td><td><b>95,697</b> / 777 / 131</td><td>영상</td></tr>
+      <tr><td><a href="https://www.youtube.com/watch?v=S8YzooEVmAA" target="_blank">요소수 농도는 정상인데...에러코드가 뜬다면? #타타대우#트럭#요소수<span class="yt">▶</span></a> <span style="font-weight:400;color:#999">(연휴 구간 보완 · 10-03)</span></td><td>DS건설기계</td><td>10-03 18:00</td><td>10,760 / 51 / 1</td><td>영상</td></tr>
+      <tr><td><a href="https://www.youtube.com/watch?v=bBIdLsOYTis" target="_blank">맥쎈 계기판 먹통 서비스불가?돈 내고 고쳐.<span class="yt">▶</span></a> <span class="tag neg">부정</span> <span style="font-weight:400;color:#999">(연휴 구간 보완 · 10-02)</span></td><td>뉴비트럭커</td><td>10-02 18:00</td><td>5,986 / 51 / 41</td><td>영상 (14:59)</td></tr>
+      <tr><td><a href="https://www.youtube.com/watch?v=5iZyLz8bmS8" target="_blank">타타대우 중형트럭 신차 출시<span class="yt">▶</span></a> <span style="font-weight:400;color:#999">(연휴 구간 보완 · 10-02)</span></td><td>홍시car</td><td>10-02 13:00</td><td>4,036 / 92 / 12</td><td>영상 (1:08)</td></tr>
+      <tr><td><a href="https://www.youtube.com/watch?v=ynPdiL5YH9A" target="_blank">같은 트럭인데 승차감이 다르다? 하이쎈 운전석과 조수석의 차이<span class="yt">▶</span></a> <span style="font-weight:400;color:#999">(연휴 구간 보완 · 10-02)</span></td><td>MOVE by Autocast (오토캐스트)</td><td>10-02 18:49</td><td>3,332 / 23 / 5</td><td>영상</td></tr>
+      <tr><td><a href="https://www.youtube.com/shorts/BhEws_AXImI" target="_blank">레벨센더 교체 전 확인하세요 #타타대우 #요소수<span class="yt">▶</span></a> <span style="font-weight:400;color:#999">(연휴 구간 보완 · 10-05)</span></td><td>DS건설기계</td><td>10-05 18:00</td><td>2,971 / 16 / 0</td><td>쇼츠</td></tr>
+      <tr><td><a href="https://www.youtube.com/shorts/bSD85KayWCE" target="_blank">하이쎈, 이게 중형이라고?👀<span class="yt">▶</span></a> <span style="font-weight:400;color:#c8472b">(자사)</span> <span style="font-weight:400;color:#999">(연휴 구간 보완 · 10-02)</span></td><td>타타대우모빌리티</td><td>10-02 13:41</td><td>1,530 / 6 / 3</td><td>쇼츠 (0:30)</td></tr>
+      <tr><td><a href="https://www.youtube.com/shorts/jQf5qS-bCDw" target="_blank">하이쎈만의 강점, 딱 3가지만 꼽는다면?👀<span class="yt">▶</span></a> <span style="font-weight:400;color:#c8472b">(자사)</span> <span style="font-weight:400;color:#999">(연휴 구간 보완 · 10-02)</span></td><td>타타대우모빌리티</td><td>10-02 13:41</td><td>1,452 / 9 / 2</td><td>쇼츠 (0:50)</td></tr>
+      <tr><td><a href="https://www.youtube.com/shorts/oz03xZ4v2Q4" target="_blank">하이쎈의 합류로 완성된 ‘쎈’ 패밀리🚛<span class="yt">▶</span></a> <span style="font-weight:400;color:#c8472b">(자사)</span> <span style="font-weight:400;color:#999">(연휴 구간 보완 · 10-02)</span></td><td>타타대우모빌리티</td><td>10-02 13:41</td><td>216 / 2 / 0</td><td>쇼츠</td></tr>
+    </table>
+    <div class="meta" style="font-size:11.5px; color:#888; margin-top:8px">경쟁사 공식(보완): MAN <a href="https://www.youtube.com/watch?v=8_Z35Rsyb9A" target="_blank">"🚛 MAN Truck &amp; Bus Korea 25 Years"<span class="yt">▶</span></a> (연휴 구간 보완 · 10-02) 19:11 · 68회.</div>
+    <div class="meta" style="font-size:11.5px; color:#888; margin-top:4px">참고: 브랜드 미특정 화물차 사고 보도가 10/05 3개 방송사 합산 70만 회 이상 재생 (<a href="https://www.youtube.com/watch?v=eAjlo41rDDg" target="_blank">KBS<span class="yt">▶</span></a>) (연휴 구간 보완 · 10-05).</div>
+  </div>
+</div>
+
+<!-- 뉴스 -->
+<div class="tab-pane" id="tab-news">
+  <div class="note">수집 창 이내(10-06) 신규 기사 <b>3건</b> · 연휴 구간(10-02 09:00 ~ 10-06 09:00) 기사 중 10-02 발행본에 실리지 않은 것은 <b>"(연휴 구간 보완)"</b>으로 발행일을 병기했다. 10-02 발행본에 이미 실린 기사(중고 상용차 수출 41%↓, 중국산 전기버스, 스타트럭 트럭파츠·리콜, 현대차 9월 판매)는 제외했고, 10-06 재게시된 '화물차 도심 규제' 기사는 참고로만 남겼다(신규 건수 제외).</div>
+  <div class="two-col">
+    <div class="section"><h2>자사 (타타대우모빌리티)</h2>
+      <div class="desc">수집 창 내 직접 보도 <b>0건</b> · 간접 언급 1건</div>
+      <div class="item-list">
+        <div class="news-item"><div class="title"><a href="https://www.cvinfo.com/news/articleView.html?idxno=31717" target="_blank">논밭의 고장, 김제는 어떻게 ‘특장차 메카’가 됐나</a> <span class="tag neu">중립</span></div>
+        <div class="desc">"전북 완주 현대차 전주공장과 군산 타타대우모빌리티가 상용차 섀시를 공급하는 전북은 특장 제조의 최적 입지" 언급. → 자사 간접 언급.</div>
+        <div class="meta">상용차매거진 · <b>2026-10-06 10:17</b></div></div>
+      </div>
+    </div>
+
+    <div class="section"><h2>상용차 산업</h2>
+      <div class="item-list">
+        <div class="news-item"><div class="title"><a href="https://www.cvinfo.com/news/articleView.html?idxno=31717" target="_blank">논밭의 고장, 김제는 어떻게 ‘특장차 메카’가 됐나</a> <span class="tag pos">긍정</span></div>
+        <div class="desc">2016년 백구면 특장차 전문단지(306억원, 33만㎡) → 2017년 자기인증센터(132억원) → 주요 7개사 지난해 1,700대 이상 생산. 업체별: 에이엠특장 2025년 614대, 카셈 419대, 국도특장 287대, 호룡 247대 등 총 7개사. 백구 제2단지 687억원.</div>
+        <div class="meta">상용차매거진 · <b>2026-10-06 10:17</b> (자사 칸과 같은 기사)</div></div>
+
+        <div class="news-item"><div class="title"><a href="https://www.cvinfo.com/news/articleView.html?idxno=31702" target="_blank">“제작부터 검사·인증까지 한곳에”...김제, 호남권 특장차 ‘원스톱 클러스터’ 완성</a> <span class="tag pos">긍정</span></div>
+        <div class="desc">특장차검사지원센터 2026-01-02 가동, 총사업비 90억원, 전용 레인 3개(소형·대형·경사각). 김제 등록 특장업체 약 60개사, 2단지 추가 30개사 예정.</div>
+        <div class="meta">상용차매거진 · <b>2026-10-06 10:17</b></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="section"><h2>경쟁사</h2>
+      <div class="item-list">
+        <div class="news-item"><div class="title"><a href="https://www.cvinfo.com/news/articleView.html?idxno=31871" target="_blank">[리콜] 에스에이피(주)_리오네</a> <span class="tag neg">부정</span> <span class="tag comp">경쟁</span></div>
+        <div class="desc">수입 버스 리오네 69대, 후면 등화장치 도료 침투로 기능 저하 우려. 시정 2026-11-16 시작.</div>
+        <div class="meta">상용차매거진 · <b>2026-10-06 11:17</b></div></div>
+
+        <div class="news-item"><div class="title"><a href="https://www.cvinfo.com/news/articleView.html?idxno=31869" target="_blank">스타트럭코리아, 트럭 탄생 130주년 맞아…'120개월 할부·10년 오일 쿠폰' 혜택</a> <span class="tag comp">경쟁</span> <span class="tag hot">확산</span></div>
+        <div class="desc">전 차종 최대 120개월 할부, 트랙터 10년 엔진오일 쿠폰, 아록스 카고 광고비 최대 600만원, 뉴 아록스 4153K 덤프 선착순 50대 최대 1,000만원 정비쿠폰, 재구매 최대 400만원.</div>
+        <div class="meta">상용차매거진 · <b>2026-10-02 14:15</b> (연휴 구간 보완 · 10-02)</div></div>
+
+        <div class="news-item"><div class="title"><a href="https://www.cvinfo.com/news/articleView.html?idxno=31866" target="_blank">만트럭버스코리아, 동절기 대비 'MAN 서비스데이' 실시</a> <span class="tag comp">경쟁</span></div>
+        <div class="desc">10/13 인천 → 10/14 의왕 ICD → 10/15 문경휴게소 → 10/20 광양 → 10/21 부산 용당 → 10/22 울산. 20개 항목 무상점검·MAN-CATS 진단·신형 TGX 540 6x2 전시. 지난해 1,000명 이상 참가.</div>
+        <div class="meta">상용차매거진 · <b>2026-10-02 09:39</b> (연휴 구간 보완 · 10-02)</div></div>      </div>
+    </div>
+
+    <div class="section"><h2>정책 · 환경</h2>
+      <div class="item-list">
+        <div class="news-item"><div class="title"><a href="https://www.cvinfo.com/news/articleView.html?idxno=31713" target="_blank">서울은 3.6톤, 부산은 8톤...화물차 도심 규제 도시마다 제각각</a> <span class="tag pol">정책</span></div>
+        <div class="desc">과적 기준은 전국 공통(축하중 10톤·총중량 40톤)이나 도심 진입 제한은 지방경찰청별 상이: 서울 3.6~10톤 평일 07~22시 제한·10톤 이상 매일, 여의도 일부 5톤 이상 전면 금지 / 부산 특정 구간 8톤 이상 / 대전 협소 구간 8톤 이상. 운전자들은 전국 통일 기준을 요구.</div>
+        <div class="meta">상용차매거진 · <b>2026-10-06 10:01 승인</b> (10-02 발행본에 09-30자로 기수록 · 참고)</div></div>
+
+        <div class="news-item"><div class="title"><a href="https://www.cvinfo.com/news/articleView.html?idxno=31868" target="_blank">페달오조작 방지장치, 화물차 보급률 50%…지입화물 3대 불과·전기화물차는 장착 한계</a> <span class="tag pol">정책</span> <span class="tag neg">부정</span></div>
+        <div class="desc">전체 장착 2,528대(목표 3,260대의 77.5%). 화물차 목표 600대 중 300대(50%) = 개인소형 297대 + 일반·지입 3대. 고령 운전자 영업용 화물차 사고 1건당 사망 비율 2.5%(택시 0.7%·버스 1.7%). 전기화물차 장착 불가.</div>
+        <div class="meta">상용차매거진 · <b>2026-10-02 11:52</b> (연휴 구간 보완 · 10-02)</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 커뮤니티 -->
+<div class="tab-pane" id="tab-community">
+  <div class="note"><b>보배드림 트럭·버스·중기 게시판</b> — 수집 창 이내 신규 글 <b>0건</b> (최신 글 10-05 12:14). 아래는 연휴 구간 참고 게시물만 라벨링해 수록한다. 게시글은 개인 의견이며 표본이 작다(n=소수). (<a href="https://www.bobaedream.co.kr/list?code=truck" target="_blank">게시판 바로가기</a>)</div>
+  <div class="two-col">
+    <div class="section"><h2>자사 관련</h2>
+      <div class="desc">수집 창 내 <b>0건</b>. 아래 1건은 <b>참고(연휴 구간)</b> 게시물이다.</div>
+      <div class="item-list">
+        <div class="news-item"><div class="title"><a href="https://www.bobaedream.co.kr/view?code=truck&amp;No=102333" target="_blank">♥ 대우 하이쎈.avi</a> <span class="tag neu">중립</span> <span class="tag neu">연휴 구간 보완 · 10-04</span></div>
+        <div class="desc">mediaAUTO 시승기 링크 공유 글.</div>
+        <div class="meta">보배드림 · <b>2026-10-04 22:57</b> · 조회 221 · 댓글 0</div></div>
+      </div>
+    </div>
+
+    <div class="section"><h2>경쟁사 · 시장</h2>
+      <div class="desc">수집 창 내 <b>0건</b>. 아래 2건은 <b>참고(연휴 구간)</b> 게시물이다.</div>
+      <div class="item-list">
+        <div class="news-item"><div class="title"><a href="https://www.bobaedream.co.kr/view?code=truck&amp;No=102334" target="_blank">볼보 2층 랩핑도색버스</a> <span class="tag neu">중립</span> <span class="tag neu">연휴 구간 보완 · 10-05</span></div>
+        <div class="desc">출사 사진.</div>
+        <div class="meta">보배드림 · <b>2026-10-05 10:11</b> · 조회 283 · 댓글 0</div></div>
+        <div class="news-item"><div class="title"><a href="https://www.bobaedream.co.kr/view?code=truck&amp;No=102339" target="_blank">히노500 10홀 사양</a> <span class="tag neu">중립</span> <span class="tag neu">연휴 구간 보완 · 10-05</span></div>
+        <div class="meta">보배드림 · <b>2026-10-05 12:14</b> · 조회 430 · 댓글 0</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="note warn" style="margin-top:14px"><b>⚠ 해석 주의</b> — 게시판 전체에서 자사·경쟁사 관련 글은 모두 댓글 0건이며, 논쟁 중인 글은 없다. 개인 의견이며 표본이 작다(n=소수).</div>
+</div>
+
+<footer>
+상용차 콘텐츠 클리핑 · 2026-10-07 (수) 발행<br>
+소스: YouTube Data API(모니터링 채널 + 키워드 검색) · 상용차매거진 · 보배드림 트럭게시판<br>
+조회수·좋아요·댓글 수는 2026-10-07 09:15 KST 실측값입니다. 인용된 댓글·게시글은 개인 의견이며, 판독·시사점은 분석 의견입니다. 공개 정보 기반으로 작성되었습니다. 수집 창 2026-10-06 09:00 ~ 10-07 09:00 KST (24시간) · 연휴 구간(10-02 09:00 ~ 10-06 09:00) 미발행분 보완 포함.
+</footer>
+</div>
+
+<script>
+document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.tabs button').forEach(x => x.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById('tab-' + b.dataset.tab).classList.add('active');
+}));
+</script>
+</body>
+</html>
